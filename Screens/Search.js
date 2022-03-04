@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,8 @@ import {
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
 
-const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
+const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
+const DATA = ['Pothole', 'Parks', 'Schools'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -20,6 +21,18 @@ export default function HomeScreen({ navigation }) {
     });
 
     const [indexTab, setIndexTab] = useState(0);
+    const [text, onChangeText] = useState("");
+    const [states, setStates] = useState(DATA)
+
+    const filterSearchResults = (value) => {
+        onChangeText(value);
+
+        if (!value) {
+            setStates(DATA);
+        } else {
+            setStates(DATA.filter((state) => state.includes(value)));
+        }
+    };
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -28,11 +41,14 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <View style={styles.headerText}>
-                        <Text style={styles.title}>bridge</Text>
-                        <Pressable style={styles.button}>
-                            <Ionicons name="person" size={20} color="white"/>
-                            <Text style={styles.profile}>Profile</Text>
-                        </Pressable>
+                        <Text style={styles.title}>search</Text>
+                        <TextInput 
+                            style={styles.input}
+                            onChangeText={filterSearchResults}
+                            value={text}
+                            placeholder="search bridge"
+                            
+                        />
                     </View>
                     <TabSelectorAnimation
                         onChangeTab={setIndexTab}
@@ -40,8 +56,12 @@ export default function HomeScreen({ navigation }) {
                         tabs={TABS}
                         backgroundColor='white'
                         styleTitle={styles.tabText}
+                        styleTab={styles.tab}
                     />
                 </View>
+                {states.map((state) => {
+                    return <Text>{state}</Text>;
+                })}
             </View>
         );
     }
@@ -52,7 +72,6 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: Colors.background,
     },
-
     header: {
         flex: 0.18,
         backgroundColor: 'white',
@@ -77,29 +96,21 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
 
-    button: {
-        flex: .45,
-        flexDirection: 'row',
-        borderRadius: 25,
-        backgroundColor: Colors.dark_green,
-        width: '20%', 
+    input: {
         height: 40,
-        marginTop: 40,
+        width: 250,
+        marginTop: 45,
         marginRight: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        borderWidth: 3,
+        padding: 10,
+        borderColor: Colors.dark_green,
+        borderRadius: 15,
+        fontFamily: 'Outfit_700Light'
     },
-
-    profile: {
-        fontFamily: 'Outfit_700Bold',
-        fontSize: 20,
-        color: 'white',
-        alignSelf: 'center',
-        marginLeft: 5
-    }, 
 
     tabSelector: {
         marginHorizontal: 8,
+        
     },
 
     tabText: {
@@ -108,4 +119,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     }, 
 
+    tab: {
+        tintColor: Colors.dark_green
+    }
 });
