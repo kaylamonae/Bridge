@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
@@ -109,3 +110,12 @@ const styles = StyleSheet.create({
     }, 
 
 });
+=======
+import Colors from './Themes/colors';
+import {StyleSheet, View, SafeAreaView, Text, Image} from 'react-native';
+
+export default function HomeScreen() {
+  
+
+}
+>>>>>>> f2fe6610a42aff260b95461527731a1854a6932d

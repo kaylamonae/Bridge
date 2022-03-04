@@ -26,7 +26,6 @@ export default function HomeScreen({ navigation }) {
 
     const filterSearchResults = (value) => {
         onChangeText(value);
-
         if (!value) {
             setStates(DATA);
         } else {
