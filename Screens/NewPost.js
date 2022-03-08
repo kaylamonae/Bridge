@@ -15,7 +15,6 @@ export default function NewPost({ navigation }) {
         setExampleState(newPost);
     }
 
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        input: {
         height: 40,
         width: 250,
         marginTop: 45,
@@ -69,6 +67,5 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         fontFamily: 'Outfit_700Light'
     },
-    }
 })
 

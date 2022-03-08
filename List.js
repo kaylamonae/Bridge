@@ -1,54 +1,16 @@
-import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image, Stack } from 'react-native';
-import Colors from '../Themes/colors';
-import AppLoading from 'expo-app-loading';
-import { Ionicons } from '@expo/vector-icons';
-import TabSelectorAnimation from 'react-native-tab-selector';
-import { useState } from "react";
-
+import React from "react";
 import {
-    useFonts, 
-    Outfit_400Regular,
-    Outfit_700Bold,
-  } from '@expo-google-fonts/outfit'
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+} from "react-native";
+import { POSTS } from "./Screens/Post.js";
 
-import posts from "./HomeScreen.js" 
-import { POSTS } from "./Post.js";
-import List from "../List.js";
-import SearchBar from "../SearchBar.js";
-
-
-const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-//const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
-
-export default function HomeScreen({ navigation }) {
-    let [fontsLoaded] = useFonts({
-        Outfit_700Bold, 
-        Outfit_400Regular,
-    });
-    const Home = () => {
-        const [searchPhrase, setSearchPhrase] = useState("");
-        const [clicked, setClicked] = useState(false);
-        const [fakeData, setFakeData] = useState();
-
-    // const [indexTab, setIndexTab] = useState(0);
-    // const [text, onChangeText] = useState("");
-    // const [states, setStates] = useState(DATA)
-
-    // get data from the fake api endpoint
-  useEffect(() => {
-    const getData = async () => {
-      const apiResponse = await fetch(
-        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
-      );
-      const data = await apiResponse.json();
-      setFakeData(data);
-    };
-    getData();
-  }, []);
-
-
-    const renderItem = ({ item }) => (
-      <View style={styles.post}>
+// definition of the Item, which will be rendered in the FlatList
+const renderItem = ({ item }) => (
+  <View style={styles.post}>
         <View style={styles.postHeader}>
             <Image source={item.profile} style={styles.postProfile}/>
             <Text style={styles.user}>{item.User}</Text>
@@ -66,63 +28,43 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.foot}>{item.location}</Text>
         </View>
       </View>
-    )
+);
 
-    function useAsync(asyncFn, onSuccess) {
-      useEffect(() => {
-        let isActive = true;
-        asyncFn().then(data => {
-          if (isActive) onSuccess(data);
-        });
-        return () => { isActive = false };
-      }, [asyncFn, onSuccess]);
+// the filter
+const List = ({ searchPhrase, setCLicked, data }) => {
+  const renderItem = ({ item }) => {
+    // when no input, show all
+    if (searchPhrase === "") {
+      return <Item name={item.name} details={item.details} />;
     }
-
-    if (!fontsLoaded) {
-        return <AppLoading/>
-    } else {
-        return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.headerText}>
-                        <Text style={styles.title}>search</Text>
-                        <SearchBar
-                            searchPhrase={searchPhrase}
-                            setSearchPhrase={setSearchPhrase}
-                            clicked={clicked}
-                            setClicked={setClicked}
-                          />
-                          {(
-
-                              <List
-                                searchPhrase={searchPhrase}
-                                data={fakeData}
-                                setClicked={setClicked}
-                              />
-
-                          )}
-                    </View>
-                    <TabSelectorAnimation
-                        onChangeTab={setIndexTab}
-                        style={styles.tabSelector}
-                        tabs={TABS}
-                        backgroundColor='white'
-                        styleTitle={styles.tabText}
-                        styleTab={styles.tab}
-                    />
-                </View>
-                <FlatList
-                    style={styles.flatlist}
-                    data={POSTS}
-                    renderItem={renderItem}
-                    keyExtractor={item => POSTS.item}
-                />
-                {states.map((state) => {
-                    return <Text>{state}</Text>;
-                })}
-            </View>
-        );
+    // filter of the name
+    if (item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+      return <Item name={item.name} details={item.details} />;
     }
+    // filter of the description
+    if (item.details.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+      return <Item name={item.name} details={item.details} />;
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.list__container}>
+      <View
+        onStartShouldSetResponder={() => {
+          setClicked(false);
+        }}
+      >
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => POSTS.item}
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default List;
 
 const styles = StyleSheet.create({
     container: {
@@ -260,6 +202,4 @@ const styles = StyleSheet.create({
     flatlist: {
         flex: 0.82,
     },
-    });
-}
-}
+});
