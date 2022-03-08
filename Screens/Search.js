@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import {
     useFonts, 
-    Outfit_300Light,
+    Outfit_400Regular,
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
 
@@ -19,7 +19,7 @@ const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
-        Outfit_300Light,
+        Outfit_400Regular,
     });
 
     const [indexTab, setIndexTab] = useState(0);
@@ -29,41 +29,21 @@ export default function HomeScreen({ navigation }) {
     const renderItem = ({ item }) => (
       <View style={styles.post}>
         <View style={styles.postHeader}>
-            < Image
-                source={item.profile}
-                style={styles.postProfile}
-            />
-            <Text style={styles.user}>
-                {item.user}
-            </Text>
-            < Text style={styles.time}>
-                {item.timestamp}
-            </Text>
-            
+            <Image source={item.profile} style={styles.postProfile}/>
+            <Text style={styles.user}>{item.User}</Text>
+            <Text style={styles.separate}>∙</Text>
+            <Text style={styles.time}>{item.timestamp}</Text>
         </View>
-        <Image
-          source={item.picture }
-          style={styles.postImage}
-        />
-
-        <Text style={styles.postDescription}>
-            {item.description}
-        </Text>
+        <Image source={item.picture} style={styles.postImage}/>
+        <Text style={styles.postDescription}>{item.description}</Text>
         <View style={styles.footer}>
-            < Ionicons name="ios-heart-outline" size={40} color="black"/>
-            <Text style={styles.foot}>
-                {item.likes}
-            </Text>
-            < Ionicons name="chatbox-ellipses" size={40} colors="white"/>
-            <Text style={styles.foot}>
-                {item.comments}
-            </Text>
-            < Ionicons name="pin" size={35} colors="black"/>
-            <Text style={styles.foot}>
-                {item.location}
-            </Text>
+            < Ionicons name="md-heart" size={35} color="white"/>
+            <Text style={styles.foot}>{item.likes}</Text>
+            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+            <Text style={styles.foot}>{item.comments}</Text>
+            < Ionicons name="md-location-sharp" size={35} color="white"/>
+            <Text style={styles.foot}>{item.location}</Text>
         </View>
-    
       </View>
     )
 
@@ -90,7 +70,7 @@ export default function HomeScreen({ navigation }) {
         return <AppLoading/>
     } else {
         return (
-            <View style={styles.flatlist}>
+            <View style={styles.container}>
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
@@ -99,7 +79,6 @@ export default function HomeScreen({ navigation }) {
                             onChangeText={filterSearchResults}
                             value={text}
                             placeholder="find a location"
-                            
                         />
                     </View>
                     <TabSelectorAnimation
@@ -112,7 +91,7 @@ export default function HomeScreen({ navigation }) {
                     />
                 </View>
                 <FlatList
-                    style={styles.container}
+                    style={styles.flatlist}
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
@@ -130,26 +109,26 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: Colors.background,
     },
+
     header: {
-        flex: 0.18,
+        flex: 0.22,
         backgroundColor: 'white',
         borderRadius: 30,
         shadowOpacity: 1,
         shadowOffset: {width: 0, height: 8},
         shadowColor: 'grey',
-        padding: 5,
     },
 
     headerText: {
         backgroundColor: 'white',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
 
     title: {
         color: Colors.dark_green,
         fontFamily: 'Outfit_700Bold',
-        fontSize: 40,
+        fontSize: 35,
         marginTop: 35,
         marginLeft: 20,
         marginBottom: 20
@@ -164,12 +143,11 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light'
+        fontFamily: 'Outfit_400Regular'
     },
 
     tabSelector: {
         marginHorizontal: 8,
-        
     },
 
     tabText: {
@@ -179,86 +157,87 @@ const styles = StyleSheet.create({
     }, 
 
     tab: {
-        tintColor: Colors.dark_green
+        
     },
 
     post: {
         flex: 1,
-        width: '80%',
+        width: '93%',
         alignSelf: 'center',
-        justifyContent: 'center',
-        borderRadius: 15,
-        borderWidth: 0.25,
-        padding: 10,
+        borderRadius: 20,
         backgroundColor: 'white',
-        marginTop: 40,
-        shadowColor: 'black',
-        shadowOpacity: 12
-
+        marginTop: 15,
     },
 
     postImage: {
-        width: '75%',
-        height: 200,
+        width: '90%',
+        height: 150,
         borderRadius: 9,
         alignSelf: 'center'
     },
 
     postHeader: {
-        padding: 10,
+        height: '22%',
+        padding: 8,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-    },
-
-    postTitle: {
-        color: "#ffffff"
     },
 
     postDescription: {
-        padding: 10,
-        fontFamily: 'Outfit_700Bold',
-        fontSize: 20,
-        color: '#161618',
+        padding: 5,
+        fontFamily: 'Outfit_400Regular',
+        fontSize: 18,
+        color: 'black',
         alignSelf: 'center'
-
     },
 
     postProfile: {
-        width: '25%',
-        height: '100%',
+        width: 50,
+        height: 50,
         borderRadius: 10,
-    }, 
+        marginLeft: 10,
+        marginRight: 10
+    },  
 
     user: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
-        color: '#161618',
+        color: Colors.dark_green,
+        marginRight: 20
+    },
+
+    separate: {
+        color: Colors.dark_green,
+        fontSize: 25,
+        marginRight: 5
     },
 
     time: {
         fontFamily: 'Outfit_700Bold',
-        fontSize: 12,
-        color: '#161618',
+        fontSize: 16,
+        color: Colors.dark_green,
+        marginLeft: 10
     },
 
     footer: {
+        backgroundColor: Colors.dark_green,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        padding: 5, 
         flexDirection: 'row',
-        padding: 5,
-        alignContent: 'center',
-        justifyContent: 'space-between',
+        alignItems: 'center',
         width: '100%'
     },
 
     foot: {
-        fontFamily: 'Outfit_700Bold',
-        fontSize: 18,
-        color: 'black',
+        fontFamily: 'Outfit_300Light',
+        fontSize: 20,
+        color: 'white',
+        marginLeft: 8,
+        marginRight: 8
     },
 
     flatlist: {
-        flex: 1,
-        padding: 0,
-        backgroundColor: Colors.background,
-    }
+        flex: 0.82,
+    },
 });

@@ -19,7 +19,7 @@ export default function LogIn( { navigation }) {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.content}>
-                    <Pressable onPress={() => navigation.navigate('Feed.js')} style={styles.signIn}>
+                    <Pressable onPress={() => navigation.navigate('Sign Up')} style={styles.signIn}>
                         <Text style={styles.buttonText}>Sign Up</Text>
                     </Pressable>
                     <View style={styles.popup}>
