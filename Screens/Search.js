@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     title: {
         color: Colors.dark_green,
         fontFamily: 'Outfit_700Bold',
-        fontSize: 40,
+        fontSize: 35,
         marginTop: 35,
         marginLeft: 20,
         marginBottom: 20
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light'
+        fontFamily: 'Outfit_300Light'
     },
 
     tabSelector: {

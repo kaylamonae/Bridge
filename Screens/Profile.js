@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,16 +10,13 @@ import {
     Outfit_300Light,
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
+import { NavigationContainer } from '@react-navigation/native';
 
-const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
-
-export default function HomeScreen({ navigation }) {
+export default function Profile ({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_300Light,
     });
-
-    const [indexTab, setIndexTab] = useState(0);
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -27,21 +24,18 @@ export default function HomeScreen({ navigation }) {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <View style={styles.headerText}>
-                        <Text style={styles.title}>bridge</Text>
-                        <Pressable onPress={() => navigation.navigate('Profile')} style={styles.button}>
-                            <Ionicons name="person" size={20} color="white"/>
-                            <Text style={styles.profile}>Profile</Text>
+                    <View style={styles.headerLeft}>
+                        <Text style={styles.title}>Profile</Text>
+                        <Pressable onPress={() => navigation.navigate('Home')} style={styles.button}>
+                            <Text style={styles.home}>Home</Text>
                         </Pressable>
                     </View>
-                    <TabSelectorAnimation
-                        onChangeTab={setIndexTab}
-                        style={styles.tabSelector}
-                        tabs={TABS}
-                        backgroundColor='white'
-                        styleTitle={styles.tabText}
-                    />
+                    <Image style={styles.image} source={require('../assets/blank-profile.webp')}/>
                 </View>
+                <View style={styles.content}>
+
+                </View>
+
             </View>
         );
     }
@@ -50,22 +44,19 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.background
     },
 
     header: {
-        flex: 0.18,
+        flex: 0.2,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         backgroundColor: 'white',
         borderRadius: 30,
         shadowOpacity: 1,
         shadowOffset: {width: 0, height: 8},
         shadowColor: 'grey',
-    },
-
-    headerText: {
-        backgroundColor: 'white',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        marginBottom: 10
     },
 
     title: {
@@ -75,6 +66,22 @@ const styles = StyleSheet.create({
         marginTop: 35,
         marginLeft: 20,
         marginBottom: 20
+    },
+
+    content: {
+        flex: 1,
+        backgroundColor: 'white',
+        margin: 20,
+        borderRadius: 25
+    },
+
+    image: {
+        width: 70,
+        height: 70,
+        borderRadius: 25,
+        margin: 20,
+        marginTop: 40,
+        alignSelf: 'center'
     },
 
     button: {
@@ -90,22 +97,17 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    profile: {
+    home: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
         color: 'white',
         alignSelf: 'center',
         marginLeft: 5
-    }, 
-
-    tabSelector: {
-        marginHorizontal: 8,
     },
 
-    tabText: {
-        fontFamily: 'Outfit_700Bold',
-        color: Colors.dark_green,
-        fontSize: 18
-    }, 
-
+    headerLeft: {
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 });

@@ -11,6 +11,7 @@ import SignUp from "./Screens/SignUp";
 import HomeScreen from "./Screens/HomeScreen";
 import Search from "./Screens/Search";
 import NewPost from "./Screens/NewPost";
+import Profile from "./Screens/Profile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +26,8 @@ function HomeTabs() {
                         iconName = focused ? 'md-home' : 'md-home-outline'
                     } else if (route.name === 'Search') {
                         iconName = focused ? 'md-search' : 'md-search-outline'
+                    } else if (route.name === 'Profile') {
+                      iconName = focused ? 'md-person-circle' : 'md-person-circle-outline'
                     } else {
                         iconName = 'md-add'
                     }
@@ -39,6 +42,7 @@ function HomeTabs() {
             <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
             <Tab.Screen name="New Post" component={NewPost} options={{headerShown: false}}/>
             <Tab.Screen name="Search" component={Search} options={{headerShown: false}}/>
+            <Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
         </Tab.Navigator>
   );
 }
@@ -51,6 +55,7 @@ export default function App() {
         <Stack.Screen name="Log In" component={LogIn} options={{headerShown: false}}/>
         <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false}}/>
         <Stack.Screen name="Home Screen" component={HomeTabs} options={{headerShown: false}}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
