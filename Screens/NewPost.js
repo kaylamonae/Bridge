@@ -5,15 +5,15 @@ import { useState } from 'react';
 export default function NewPost({ navigation }) {
 
     const [exampleState, setExampleState] = useState(POSTS)
+    const ID = 6
 
     const addElement = () => {
-        var newPost = [...POSTS , {id : "6", user: "Caleb Robinson", profile: null, picture: null, 
-        description: "We need more late-night dining options!", location: "Stanford University", 
-        likes: "500", comments: "55", timestamp: "Just Now",
+        var newPost = [...POSTS , {id : ID, user: "", profile: null, picture: null, 
+        description: "", location: "", 
+        likes: "", comments: "", timestamp: "",
             }];
         setExampleState(newPost);
     }
-
 
 
     return (
@@ -56,5 +56,19 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginBottom: 20
     },
+
+    title: {
+        input: {
+        height: 40,
+        width: 250,
+        marginTop: 45,
+        marginRight: 20,
+        borderWidth: 3,
+        padding: 10,
+        borderColor: Colors.dark_green,
+        borderRadius: 15,
+        fontFamily: 'Outfit_700Light'
+    },
+    }
 })
 
