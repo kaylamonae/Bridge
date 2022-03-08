@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Pressable, Image} from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
@@ -46,8 +45,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1, 
         margin: 45, 
-        marginBottom: 0
+        marginTop: 0,
     },
+
 
     signIn: {
         justifyContent: 'center',
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
         height: 40, 
         width: '30%', 
         alignSelf: 'flex-end',
-        marginBottom: 25
+        marginTop: 10,
+        marginBottom: 30
     },
 
     buttonText: {
