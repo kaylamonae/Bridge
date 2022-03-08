@@ -14,8 +14,7 @@ import {
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-const DATA = [posts.location];
-//['Palo Alto', 'Berkeley', 'Alameda', 'France'];
+const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -35,7 +34,7 @@ export default function HomeScreen({ navigation }) {
                 style={styles.postProfile}
             />
             <Text style={styles.user}>
-                {item.User}
+                {item.user}
             </Text>
             < Text style={styles.time}>
                 {item.timestamp}
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
-        color: Colors.dark_green,
+        color: '#161618',
         alignSelf: 'center'
 
     },
@@ -234,13 +233,13 @@ const styles = StyleSheet.create({
     user: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
-        color: Colors.dark_green,
+        color: '#161618',
     },
 
     time: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 12,
-        color: 'black',
+        color: '#161618',
     },
 
     footer: {

@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
                 style={styles.postProfile}
             />
             <Text style={styles.user}>
-                {item.User}
+                {item.user}
             </Text>
             < Text style={styles.time}>
                 {item.timestamp}
@@ -208,8 +208,9 @@ const styles = StyleSheet.create({
         padding: 10,
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
-        color: Colors.dark_green,
-        alignSelf: 'center'
+        color: '#161618',
+        alignSelf: 'center',
+        fontWeight: "100",
 
     },
 
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     user: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
-        color: Colors.dark_green,
+        color: '#161618',
     },
 
     time: {
@@ -236,12 +237,12 @@ const styles = StyleSheet.create({
         padding: 5,
         alignContent: 'center',
         justifyContent: 'space-between',
-        width: '80%'
+        width: '100%'
     },
 
     foot: {
         fontFamily: 'Outfit_700Bold',
-        fontSize: 22,
+        fontSize: 18,
         color: 'black',
     },
 
