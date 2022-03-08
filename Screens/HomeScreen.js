@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     },
 
     foot: {
-        fontFamily: 'Outfit_300Light',
+        fontFamily: 'Outfit_400Regular',
         fontSize: 20,
         color: 'white',
         marginLeft: 8,

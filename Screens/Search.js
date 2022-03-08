@@ -14,8 +14,7 @@ import {
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-const DATA = [posts.location];
-//['Palo Alto', 'Berkeley', 'Alameda', 'France'];
+const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({

@@ -1,8 +1,8 @@
 export  const POSTS = [
   {
     id: 1,
-    User: 'Amy Losartan',
-    Title: 'Pothole on Panama Street',
+    user: 'Amy Losartan',
+    title: 'Pothole on Panama Street',
     profile: require('../assets/addedAssets/profiles/amyLosartan.jpg'),
     picture: require('../assets/addedAssets/images/potholes.jpg'),
     description: 'There is a huge pothole on the corner of Panama and Lasuen that needs fixing! ',
@@ -14,8 +14,8 @@ export  const POSTS = [
 
   {
     id: 2,
-    User: 'Samuel James',
-    Title: 'We need more park benches',
+    user: 'Samuel James',
+    title: 'We need more park benches',
     profile: require('../assets/addedAssets/profiles/samuelJames.jpg'),
     picture: require('../assets/addedAssets/images/parkBench.jpg'),
     description: 'The benches at Palo Alto Park are all beat up and broken😡 ',
@@ -27,8 +27,8 @@ export  const POSTS = [
 
   {
     id: 3,
-    User: 'Matthew Liu',
-    Title: 'Cal Train Tickets are so expensive!',
+    user: 'Matthew Liu',
+    title: 'Cal Train Tickets are so expensive!',
     profile: require('../assets/addedAssets/profiles/matthewLiu.jpg'),
     picture: require('../assets/addedAssets/images/caltrainTicket.jpg'),
     description: 'The Cal Train Tickets are ridiculously expensive!  I wish there was a cheaper option. ',
@@ -40,8 +40,8 @@ export  const POSTS = [
 
   {
     id: 4,
-    User: 'Patricia Humphrey',
-    Title: 'Cal Train Tickets are so expensive!',
+    user: 'Patricia Humphrey',
+    title: 'Cal Train Tickets are so expensive!',
     profile: require('../assets/addedAssets/profiles/patriciaHumphrey.jpg'),
     picture: require('../assets/addedAssets/images/boxOfBooks.jpg'),
     description: 'Calling all book lovers!  Palo Alto High is having a book drive for the rest of this month! ',
@@ -53,10 +53,10 @@ export  const POSTS = [
 
   {
     id: 5,
-    User: 'Wanye Gorgalo',
-    Title: 'Too many bikes',
+    user: 'Wanye Gorgalo',
+    title: 'Too many bikes',
     profile: require('../assets/addedAssets/profiles/wanyeGorgalo.jpg'),
-    //picture: require('../assets/addedAssets/images/boxOfBooks.jpg'),
+    picture: null,
     description: 'There are too many bikes on the sidewalk of Campus Drive, I was almost hit 3 times today!! ',
     location: 'Stanford, CA',
     timestamp: '2 days',
