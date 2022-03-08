@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image, Stack } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,8 +11,11 @@ import {
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
 
+import posts from "./HomeScreen.js" 
+import { POSTS } from "./Post.js";
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-const DATA = ['Pothole', 'Parks', 'Schools'];
+const DATA = [posts.location];
+//['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -24,6 +27,47 @@ export default function HomeScreen({ navigation }) {
     const [text, onChangeText] = useState("");
     const [states, setStates] = useState(DATA)
 
+    const renderItem = ({ item }) => (
+      <View style={styles.post}>
+        <View style={styles.postHeader}>
+            < Image
+                source={item.profile}
+                style={styles.postProfile}
+            />
+            <Text style={styles.user}>
+                {item.User}
+            </Text>
+            < Text style={styles.time}>
+                {item.timestamp}
+            </Text>
+            
+        </View>
+        <Image
+          source={item.picture }
+          style={styles.postImage}
+        />
+
+        <Text style={styles.postDescription}>
+            {item.description}
+        </Text>
+        <View style={styles.footer}>
+            < Ionicons name="ios-heart-outline" size={40} color="black"/>
+            <Text style={styles.foot}>
+                {item.likes}
+            </Text>
+            < Ionicons name="chatbox-ellipses" size={40} colors="white"/>
+            <Text style={styles.foot}>
+                {item.comments}
+            </Text>
+            < Ionicons name="pin" size={35} colors="black"/>
+            <Text style={styles.foot}>
+                {item.location}
+            </Text>
+        </View>
+    
+      </View>
+    )
+
     const filterSearchResults = (value) => {
         onChangeText(value);
         if (!value) {
@@ -33,11 +77,21 @@ export default function HomeScreen({ navigation }) {
         }
     };
 
+    function useAsync(asyncFn, onSuccess) {
+      useEffect(() => {
+        let isActive = true;
+        asyncFn().then(data => {
+          if (isActive) onSuccess(data);
+        });
+        return () => { isActive = false };
+      }, [asyncFn, onSuccess]);
+    }
+
     if (!fontsLoaded) {
         return <AppLoading/>
     } else {
         return (
-            <View style={styles.container}>
+            <View style={styles.flatlist}>
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
@@ -45,7 +99,7 @@ export default function HomeScreen({ navigation }) {
                             style={styles.input}
                             onChangeText={filterSearchResults}
                             value={text}
-                            placeholder="search bridge"
+                            placeholder="find a location"
                             
                         />
                     </View>
@@ -58,6 +112,12 @@ export default function HomeScreen({ navigation }) {
                         styleTab={styles.tab}
                     />
                 </View>
+                <FlatList
+                    style={styles.container}
+                    data={POSTS}
+                    renderItem={renderItem}
+                    keyExtractor={item => POSTS.item}
+                />
                 {states.map((state) => {
                     return <Text>{state}</Text>;
                 })}
@@ -78,6 +138,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowOffset: {width: 0, height: 8},
         shadowColor: 'grey',
+        padding: 5,
     },
 
     headerText: {
@@ -120,5 +181,85 @@ const styles = StyleSheet.create({
 
     tab: {
         tintColor: Colors.dark_green
+    },
+
+    post: {
+        flex: 1,
+        width: '80%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        borderWidth: 0.25,
+        padding: 10,
+        backgroundColor: 'white',
+        marginTop: 40,
+        shadowColor: 'black',
+        shadowOpacity: 12
+
+    },
+
+    postImage: {
+        width: '75%',
+        height: 200,
+        borderRadius: 9,
+        alignSelf: 'center'
+    },
+
+    postHeader: {
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+
+    postTitle: {
+        color: "#ffffff"
+    },
+
+    postDescription: {
+        padding: 10,
+        fontFamily: 'Outfit_700Bold',
+        fontSize: 20,
+        color: Colors.dark_green,
+        alignSelf: 'center'
+
+    },
+
+    postProfile: {
+        width: '25%',
+        height: '100%',
+        borderRadius: 10,
+    }, 
+
+    user: {
+        fontFamily: 'Outfit_700Bold',
+        fontSize: 20,
+        color: Colors.dark_green,
+    },
+
+    time: {
+        fontFamily: 'Outfit_700Bold',
+        fontSize: 12,
+        color: 'black',
+    },
+
+    footer: {
+        flexDirection: 'row',
+        padding: 5,
+        alignContent: 'center',
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+
+    foot: {
+        fontFamily: 'Outfit_700Bold',
+        fontSize: 18,
+        color: 'black',
+    },
+
+    flatlist: {
+        flex: 1,
+        padding: 0,
+        backgroundColor: Colors.background,
     }
 });

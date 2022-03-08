@@ -19,10 +19,15 @@ export default function LandingScreen({ navigation }) {
     } else {
         return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.content}>
+                <View style={styles.header}>
                     <Pressable onPress={() => navigation.navigate('Sign Up')} style={styles.signIn}>
                         <Text style={styles.buttonText}>Sign Up</Text>
                     </Pressable>
+                    <Pressable onPress={() => navigation.navigate('Log In')} style={styles.signIn}>
+                        <Text style={styles.buttonText}>Log In</Text>
+                    </Pressable>
+                </View>
+                <View style ={styles.content}>
                     <Text style={styles.title}>bridge</Text>
                     <Text style={styles.caption}>bridging the gap between people & progress</Text>
                     <Pressable onPress={() => navigation.navigate('Home Screen')}> 
@@ -44,9 +49,17 @@ const styles = StyleSheet.create({
     },
 
     content: {
-        flex: 1, 
+        flex: 0.9, 
         margin: 45, 
-        marginBottom: 0
+        marginTop: 0,
+    },
+
+    header: {
+        flex: 0.2,
+        margin: 45,
+        marginTop: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
 
     signIn: {

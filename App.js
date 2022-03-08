@@ -15,6 +15,9 @@ import NewPost from "./Screens/NewPost";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
+
+
 function HomeTabs() {
   return (
     <Tab.Navigator
