@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, FlatList, Button } from 'react-native';
 import Colors from '../Themes/colors';
 import { POSTS } from "./Post.js";
 import { useState } from 'react';
@@ -19,7 +19,7 @@ export default function NewPost({ navigation }) {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>
-                    Make A Post!
+                    make a post!
                 </Text>
             </View>
             <Button
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
 
     header: {
-        flex: 0.18,
+        flex: 0.22,
         backgroundColor: 'white',
         borderRadius: 30,
         shadowOpacity: 1,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light'
+        fontFamily: 'Outfit_700Bold'
     },
 })
 

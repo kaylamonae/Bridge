@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { db } from '../firebase';
+import { collection, doc, addDoc } from 'firebase/firestore';
 import {
     useFonts, 
     Outfit_400Regular,
@@ -19,7 +20,8 @@ export default function SignUp({ navigation }) {
 
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
-    const [UID, onChangeUID] = useState("");
+    const [username, onChangeUID] = useState("");
+    const usersCollectionRef = collection(db, 'users');
 
     const signUpUser = async () => {
         const auth = getAuth();
@@ -28,12 +30,17 @@ export default function SignUp({ navigation }) {
         }
         try {
             let userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            
+            await addDoc(collection(db, 'users'), {
+                name: username,
+                email: userCredential.user.email
+            })
             navigation.navigate('Home Screen');
         } catch (err) {
             console.log(err);
         }
     }
+
+
 
     if (!fontsLoaded) { 
         return <AppLoading/>;
@@ -50,7 +57,7 @@ export default function SignUp({ navigation }) {
                             <TextInput
                                 style={styles.textBox}
                                 onChangeText={onChangeUID}
-                                value={UID}
+                                value={username}
                                 placeholder="your name"
                             />
                             <TextInput

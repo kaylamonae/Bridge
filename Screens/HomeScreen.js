@@ -30,6 +30,17 @@ export default function HomeScreen({ navigation }) {
     });
 
     const [indexTab, setIndexTab] = useState(0);
+
+    // const setTabStyle = () => {
+    //     if (indexTab === 0) {
+    //         console.log(indexTab);
+    //         return styles.activeTab;
+    //     } else {
+    //         console.log(indexTab);
+    //         return styles.activeTab;
+    //     }
+    // }
+
     const renderItem = ({ item }) => (
       <View style={styles.post}>
         <View style={styles.postHeader}>
@@ -38,14 +49,9 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.separate}>∙</Text>
             <Text style={styles.time}>{item.timestamp}</Text>
         </View>
-        <Image
-          source={item.picture }
-          style={styles.postImage}
-        />
+        <Image source={item.picture} style={styles.postImage}/>
 
-        <Text style={styles.postDescription}>
-            {item.description}
-        </Text>
+        <Text style={styles.postDescription}>{item.description}</Text>
         <View style={styles.footer}>
             <Ionicons name="md-heart" size={35} color="white"/>
             <Text style={styles.foot}>{item.likes}</Text>
@@ -54,7 +60,6 @@ export default function HomeScreen({ navigation }) {
             < Ionicons name="md-location-sharp" size={35} color="white"/>
             <Text style={styles.foot}>{item.location}</Text>
         </View>
-    
       </View>
     )
 
@@ -77,6 +82,7 @@ export default function HomeScreen({ navigation }) {
                         tabs={TABS}
                         backgroundColor='white'
                         styleTitle={styles.tabText}
+                        
                     />
                 </View>                    
                 <FlatList
@@ -239,6 +245,10 @@ const styles = StyleSheet.create({
     flatlist: {
         flex: 0.82,
     },
+
+    activeTab: {
+        color: Colors.dark_green
+    }
 
 
 });

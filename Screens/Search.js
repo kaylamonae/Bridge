@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image, Stack } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,8 +13,6 @@ import {
 
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
-import List from "../Modules/List.js";
-import SearchBar from "../Modules/SearchBar";
 
 
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
