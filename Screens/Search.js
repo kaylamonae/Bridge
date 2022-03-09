@@ -36,17 +36,6 @@ export default function HomeScreen({ navigation }) {
     // const [states, setStates] = useState(DATA)
 
     // get data from the fake api endpoint
-  useEffect(() => {
-    const getData = async () => {
-      const apiResponse = await fetch(
-        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
-      );
-      const data = await apiResponse.json();
-      setFakeData(data);
-    };
-    getData();
-  }, []);
-
 
     const renderItem = ({ item }) => (
       <View style={styles.post}>
@@ -96,7 +85,7 @@ export default function HomeScreen({ navigation }) {
                           {(
                               <List
                                 searchPhrase={searchPhrase}
-                                data={fakeData}
+                                data={POSTS}
                                 setClicked={setClicked}
                               />
 
