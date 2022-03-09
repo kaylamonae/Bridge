@@ -25,10 +25,11 @@ export default function HomeScreen({ navigation }) {
         Outfit_700Bold, 
         Outfit_400Regular,
     });
-    const Home = () => {
-        const [searchPhrase, setSearchPhrase] = useState("");
-        const [clicked, setClicked] = useState(false);
-        const [fakeData, setFakeData] = useState();
+    // const Home = () => {
+    //     const [searchPhrase, setSearchPhrase] = useState("");
+    //     const [clicked, setClicked] = useState(false);
+    //     const [fakeData, setFakeData] = useState();
+    // }
 
     // const [indexTab, setIndexTab] = useState(0);
     // const [text, onChangeText] = useState("");
@@ -93,7 +94,6 @@ export default function HomeScreen({ navigation }) {
                             setClicked={setClicked}
                           />
                           {(
-
                               <List
                                 searchPhrase={searchPhrase}
                                 data={fakeData}
@@ -261,5 +261,4 @@ const styles = StyleSheet.create({
         flex: 0.82,
     },
     });
-}
 }

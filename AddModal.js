@@ -4,6 +4,7 @@ import { AppRegistry, FlatList, StyleSheet, Text, View, Image,
 import { Modal } from 'react-native-modalbox';
 import { Button } from 'react-native-button';
 import FlatListData from './Screens/Post.js';
+import Colors from './Themes/colors';
 
 export default class AddModal extends Component {
 	constructor(props) {
@@ -30,7 +31,7 @@ export default class AddModal extends Component {
 			        fontFamily: 'Outfit_700Light'
 	    },
 					}}
-				>
+				/>
 				<Text>Add a Title Here</Text>
 
 			</Modal>

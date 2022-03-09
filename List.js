@@ -7,6 +7,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { POSTS } from "./Screens/Post.js";
+import Colors from './Themes/colors';
 
 // definition of the Item, which will be rendered in the FlatList
 const renderItem = ({ item }) => (

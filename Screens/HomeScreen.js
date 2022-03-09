@@ -5,8 +5,8 @@ import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+//import { db } from "../firebase";
+//import { doc, getDoc } from "firebase/firestore";
 import { Divider } from 'react-native';
 import { POSTS } from "./Post.js";
 //import { Avatar, withStyles, List } from 'react-native-ui-kitten';
@@ -33,24 +33,10 @@ export default function HomeScreen({ navigation }) {
     const renderItem = ({ item }) => (
       <View style={styles.post}>
         <View style={styles.postHeader}>
-<<<<<<< HEAD
             <Image source={item.profile} style={styles.postProfile}/>
             <Text style={styles.user}>{item.user}</Text>
             <Text style={styles.separate}>∙</Text>
             <Text style={styles.time}>{item.timestamp}</Text>
-=======
-            < Image
-                source={item.profile}
-                style={styles.postProfile}
-            />
-            <Text style={styles.user}>
-                {item.user}
-            </Text>
-            < Text style={styles.time}>
-                {item.timestamp}
-            </Text>
-            
->>>>>>> 2e1bfcd209eae36db19db259d8d997d3c1027b3f
         </View>
         <Image
           source={item.picture }

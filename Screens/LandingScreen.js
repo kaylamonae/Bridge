@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable, Image} from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
+
 import {
   useFonts, 
   Outfit_300Light,
