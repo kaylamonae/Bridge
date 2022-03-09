@@ -8,8 +8,8 @@ export  const POSTS = [
     description: 'There is a huge pothole on the corner of Panama and Lasuen that needs fixing! ',
     location: 'Palo Alto, CA',
     timestamp: '2 hr',
-    likes: '15',
-    comments: '3',
+    likes: 15,
+    comments: 3,
   },
 
   {
@@ -21,8 +21,8 @@ export  const POSTS = [
     description: 'The benches at Palo Alto Park are all beat up and broken😡 ',
     location: 'Alameda, CA',
     timestamp: '4 hr',
-    likes: '20',
-    comments: '5',
+    likes: 20,
+    comments: 5,
   }, 
 
   {
@@ -34,8 +34,8 @@ export  const POSTS = [
     description: 'The Cal Train Tickets are ridiculously expensive!  I wish there was a cheaper option. ',
     location: 'Berkeley, CA',
     timestamp: '30 min',
-    likes: '200',
-    comments: '25',
+    likes: 200,
+    comments: 25,
   },
 
   {
@@ -47,8 +47,8 @@ export  const POSTS = [
     description: 'Calling all book lovers!  Palo Alto High is having a book drive for the rest of this month! ',
     location: 'Palo Alto, CA',
     timestamp: '1 day',
-    likes: '75',
-    comments: '30',
+    likes: 75,
+    comments: 30,
   },
 
   {
@@ -60,7 +60,7 @@ export  const POSTS = [
     description: 'There are too many bikes on the sidewalk of Campus Drive, I was almost hit 3 times today!! ',
     location: 'Stanford, CA',
     timestamp: '2 days',
-    likes: '60',
-    comments: '9',
+    likes: 60,
+    comments: 9,
   },
 ]

@@ -13,18 +13,39 @@ import {
 
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
+import List from "../List.js";
+import SearchBar from "../SearchBar.js";
+
+
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
+//const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
+    const Home = () => {
+        const [searchPhrase, setSearchPhrase] = useState("");
+        const [clicked, setClicked] = useState(false);
+        const [fakeData, setFakeData] = useState();
 
-    const [indexTab, setIndexTab] = useState(0);
-    const [text, onChangeText] = useState("");
-    const [states, setStates] = useState(DATA)
+    // const [indexTab, setIndexTab] = useState(0);
+    // const [text, onChangeText] = useState("");
+    // const [states, setStates] = useState(DATA)
+
+    // get data from the fake api endpoint
+  useEffect(() => {
+    const getData = async () => {
+      const apiResponse = await fetch(
+        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
+      );
+      const data = await apiResponse.json();
+      setFakeData(data);
+    };
+    getData();
+  }, []);
+
 
     const renderItem = ({ item }) => (
       <View style={styles.post}>
@@ -47,15 +68,6 @@ export default function HomeScreen({ navigation }) {
       </View>
     )
 
-    const filterSearchResults = (value) => {
-        onChangeText(value);
-        if (!value) {
-            setStates(DATA);
-        } else {
-            setStates(DATA.filter((state) => state.includes(value)));
-        }
-    };
-
     function useAsync(asyncFn, onSuccess) {
       useEffect(() => {
         let isActive = true;
@@ -74,12 +86,21 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
-                        <TextInput 
-                            style={styles.input}
-                            onChangeText={filterSearchResults}
-                            value={text}
-                            placeholder="find a location"
-                        />
+                        <SearchBar
+                            searchPhrase={searchPhrase}
+                            setSearchPhrase={setSearchPhrase}
+                            clicked={clicked}
+                            setClicked={setClicked}
+                          />
+                          {(
+
+                              <List
+                                searchPhrase={searchPhrase}
+                                data={fakeData}
+                                setClicked={setClicked}
+                              />
+
+                          )}
                     </View>
                     <TabSelectorAnimation
                         onChangeTab={setIndexTab}
@@ -102,7 +123,6 @@ export default function HomeScreen({ navigation }) {
             </View>
         );
     }
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -134,7 +154,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
 
-    input: {
+    bar: {
         height: 40,
         width: 250,
         marginTop: 45,
@@ -240,4 +260,6 @@ const styles = StyleSheet.create({
     flatlist: {
         flex: 0.82,
     },
-});
+    });
+}
+}
