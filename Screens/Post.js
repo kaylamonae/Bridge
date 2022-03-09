@@ -10,6 +10,7 @@ export  const POSTS = [
     timestamp: '2 hr',
     likes: 15,
     comments: 3,
+    isEndorsed: true,
   },
 
   {
@@ -23,6 +24,7 @@ export  const POSTS = [
     timestamp: '4 hr',
     likes: 20,
     comments: 5,
+    isEndorsed: false,
   }, 
 
   {
@@ -33,9 +35,10 @@ export  const POSTS = [
     picture: require('../assets/addedAssets/images/caltrainTicket.jpg'),
     description: 'The Cal Train Tickets are ridiculously expensive!  I wish there was a cheaper option. ',
     location: 'Berkeley, CA',
-    timestamp: '30 min',
+    timestamp: '30 min                ',
     likes: 200,
     comments: 25,
+    isEndorsed: false,
   },
 
   {
@@ -49,6 +52,7 @@ export  const POSTS = [
     timestamp: '1 day',
     likes: 75,
     comments: 30,
+    isEndorsed: true,
   },
 
   {
@@ -62,5 +66,6 @@ export  const POSTS = [
     timestamp: '2 days',
     likes: 60,
     comments: 9,
+    isEndorsed: false,
   },
 ]

@@ -25,7 +25,9 @@ export default function LandingScreen({ navigation }) {
                     </Pressable>
                     <Text style={styles.title}>bridge</Text>
                     <Text style={styles.caption}>bridging the gap between people & progress</Text>
-                    <Image style={styles.image} source={require('../assets/homescreen.png')}/>
+                    <Pressable onPress={() => navigation.navigate('Home Screen')}>
+                        <Image style={styles.image} source={require('../assets/homescreen.png')}/>
+                    </Pressable>
                     <Pressable onPress={() => navigation.navigate('Log In')} style={styles.bigbutton}>
                         <Text style={styles.bigbuttonText}>Log In</Text>
                     </Pressable>

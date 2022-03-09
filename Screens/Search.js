@@ -13,8 +13,8 @@ import {
 
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
-import List from "../Modules/List.js";
-import SearchBar from "../Modules/SearchBar";
+//import List from "../Modules/List.js";
+//import SearchBar from "../Modules/SearchBar";
 
 
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
@@ -76,20 +76,6 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
-                        {/* <SearchBar
-                            searchPhrase={searchPhrase}
-                            setSearchPhrase={setSearchPhrase}
-                            clicked={clicked}
-                            setClicked={setClicked}
-                          />
-                          {(
-                              <List
-                                searchPhrase={searchPhrase}
-                                data={POSTS}
-                                setClicked={setClicked}
-                              />
-
-                          )} */}
                     </View>
                     <TabSelectorAnimation
                         onChangeTab={setIndexTab}

@@ -23,50 +23,14 @@ const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
 // Required for side-effects
 //require("firebase/firestore");
 
-export default function HomeScreen({ navigation }) {
-    let [fontsLoaded] = useFonts({
-        Outfit_700Bold, 
-        Outfit_400Regular,
-    });
 
-    let endorsed;
-    // if (isEndorsed === true) {
-    //         endorsed = 
-            
-    //                 <View style={styles.endorsedFooter}>
-    //                 <View style={styles.footer}>
-    //                 <Ionicons name="md-heart" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.likes}</Text>
-    //                 < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.comments}</Text>
-    //                 < Ionicons name="md-location-sharp" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.location}</Text>
-    //                 </View>
-            
-                
-            // } else {
-            //     endorsed = 
-                
-                        // <View style={styles.footer}>
-                        // <Ionicons name="md-heart" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.likes}</Text>
-                        // < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.comments}</Text>
-                        // < Ionicons name="md-location-sharp" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.location}</Text>
-                        // </View>
-                    
-            // }
-
-    const [indexTab, setIndexTab] = useState(0);
-    const renderItem = ({ item }) => (
+const renderItem = ({ item }) => (
         <View style={styles.post}>
             <View style={styles.postHeader}>
                 <Image source={item.profile} style={styles.postProfile}/>
                 <Text style={styles.user}>{item.user}</Text>
                 <Text style={styles.separate}>∙</Text>
                 <Text style={styles.time}>{item.timestamp}</Text>
-                <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
             </View>
             <Image
               source={item.picture }
@@ -75,7 +39,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.postDescription}>
                 {item.description}
             </Text>
-            <View style={styles.endorsedFooter}>
+            <View style={styles.footer}>
                         <Ionicons name="md-heart" size={35} color="white"/>
                         <Text style={styles.foot}>{item.likes}</Text>
                         < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
@@ -85,42 +49,27 @@ export default function HomeScreen({ navigation }) {
                         </View>
         </View>
     );
+
+  return (
+    <View style={styles.container}>
       
 
-    if (!fontsLoaded) {
-        return <AppLoading/>
-    } else {
-        return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.headerText}>
-                        <Text style={styles.title}>bridge</Text>
-                        <Pressable style={styles.button}>
-                            <Ionicons name="person" size={20} color="white"/>
-                            <Text style={styles.profile}>Profile</Text>
-                        </Pressable>
-                    </View>
-                    <TabSelectorAnimation
-                        onChangeTab={setIndexTab}
-                        style={styles.tabSelector}
-                        tabs={TABS}
-                        backgroundColor='white'
-                        styleTitle={styles.tabText}
-                    />
-                </View>                    
-                <FlatList
-                    style={styles.flatlist}
-                    data={POSTS}
-                    renderItem={renderItem}
-                    keyExtractor={item => POSTS.item}
-                    onPress={() => navigation.navigate('Comments')}
-                />
 
-                    
-            </View>
-        );
-    }
-}
+
+
+
+    </View>
+
+
+
+  );
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -286,4 +235,3 @@ const styles = StyleSheet.create({
 
 
 });
-
