@@ -25,9 +25,7 @@ export default function LandingScreen({ navigation }) {
                     </Pressable>
                     <Text style={styles.title}>bridge</Text>
                     <Text style={styles.caption}>bridging the gap between people & progress</Text>
-                    <Pressable onPress={() => navigation.navigate('Home Screen')}> 
-                        <Image style={styles.image} source={require('../assets/homescreen.png')}/>
-                    </Pressable>
+                    <Image style={styles.image} source={require('../assets/homescreen.png')}/>
                     <Pressable onPress={() => navigation.navigate('Log In')} style={styles.bigbutton}>
                         <Text style={styles.bigbuttonText}>Log In</Text>
                     </Pressable>
@@ -48,7 +46,6 @@ const styles = StyleSheet.create({
         margin: 45, 
         marginTop: 0,
     },
-
 
     signIn: {
         justifyContent: 'center',
@@ -90,7 +87,6 @@ const styles = StyleSheet.create({
 
     bigbutton: {
         flex: 1, 
-        alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.dark_green,
