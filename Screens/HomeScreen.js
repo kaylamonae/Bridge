@@ -33,7 +33,7 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.post}>
         <View style={styles.postHeader}>
             <Image source={item.profile} style={styles.postProfile}/>
-            <Text style={styles.user}>{item.User}</Text>
+            <Text style={styles.user}>{item.user}</Text>
             <Text style={styles.separate}>∙</Text>
             <Text style={styles.time}>{item.timestamp}</Text>
         </View>

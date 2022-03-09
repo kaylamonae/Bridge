@@ -1,24 +1,25 @@
 // Import the functions you need from the SDKs you need
-  import { initializeApp } from "firebase/app";
-  import { getFirestore } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCusxs3VIBKZrdmTB50xrNAtrSs9t2nM-M",
+  authDomain: "bridge-ca028.firebaseapp.com",
+  projectId: "bridge-ca028",
+  storageBucket: "bridge-ca028.appspot.com",
+  messagingSenderId: "987103398040",
+  appId: "1:987103398040:web:8e20473cbaa85f9372e8ed",
+  measurementId: "G-MLQD0DGYFC"
+};
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyC8yp9ifjVYXP3sKoCprZSIKpoYxlcYW6I",
-  //   authDomain: "bridge-a4a3d.firebaseapp.com",
-  //   projectId: "bridge-a4a3d",
-  //   storageBucket: "bridge-a4a3d.appspot.com",
-  //   messagingSenderId: "208945172446",
-  //   appId: "1:208945172446:web:5a3cd041d457bf404b974f",
-  //   measurementId: "G-ZLH17NRMNE"
-  // };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-  // Initialize Firebase
-  // const app = initializeApp(firebaseConfig);
-  // const db = getFirestore(app);
-
-  // export { db };
+export { db };
