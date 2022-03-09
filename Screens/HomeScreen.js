@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Pressable, SafeAreaView, ScrollView, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
-//import { db } from "../firebase";
+import { db } from "../firebase";
 //import { doc, getDoc } from "firebase/firestore";
 import { Divider } from 'react-native';
 import { POSTS } from "./Post.js";
@@ -14,7 +14,7 @@ import { POSTS } from "./Post.js";
 
 import {
     useFonts, 
-    Outfit_300Light,
+    Outfit_400Regular,
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
 
@@ -26,7 +26,7 @@ const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
-        Outfit_300Light,
+        Outfit_400Regular,
     });
 
     const [indexTab, setIndexTab] = useState(0);
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
         return <AppLoading/>
     } else {
         return (
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>bridge</Text>
@@ -70,14 +70,14 @@ export default function HomeScreen({ navigation }) {
                             <Ionicons name="person" size={20} color="white"/>
                             <Text style={styles.profile}>Profile</Text>
                         </Pressable>
-                        <TabSelectorAnimation
+                    </View>
+                    <TabSelectorAnimation
                         onChangeTab={setIndexTab}
                         style={styles.tabSelector}
                         tabs={TABS}
                         backgroundColor='white'
                         styleTitle={styles.tabText}
-                        />
-                    </View>
+                    />
                 </View>                    
                 <FlatList
                     style={styles.flatlist}
@@ -87,7 +87,7 @@ export default function HomeScreen({ navigation }) {
                 />
 
                     
-            </SafeAreaView>
+            </View>
         );
     }
 }
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
 
     header: {
-        flex: 0.18,
+        flex: 0.22,
         backgroundColor: 'white',
         borderRadius: 30,
         shadowOpacity: 1,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     },
 
     foot: {
-        fontFamily: 'Outfit_300Light',
+        fontFamily: 'Outfit_400Regular',
         fontSize: 20,
         color: 'white',
         marginLeft: 8,

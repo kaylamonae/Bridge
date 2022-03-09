@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     },
 
     header: {
-        flex: 0.2,
+        flex: 0.22,
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'white',
@@ -71,8 +71,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         backgroundColor: 'white',
-        margin: 20,
-        borderRadius: 25
+        margin: 15,
+        borderRadius: 25,
+        marginBottom: 10
     },
 
     image: {
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     headerLeft: {
         backgroundColor: 'white',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderRadius: 30
     }
 });

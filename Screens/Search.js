@@ -3,7 +3,7 @@ import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
     useFonts, 
@@ -13,23 +13,23 @@ import {
 
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
-import List from "../List.js";
-import SearchBar from "../SearchBar.js";
+import List from "../Modules/List.js";
+import SearchBar from "../Modules/SearchBar";
 
 
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-//const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
+const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
-    // const Home = () => {
+    // // const Home = () => {
     //     const [searchPhrase, setSearchPhrase] = useState("");
     //     const [clicked, setClicked] = useState(false);
     //     const [fakeData, setFakeData] = useState();
-    // }
+    // // }
 
     // const [indexTab, setIndexTab] = useState(0);
     // const [text, onChangeText] = useState("");
@@ -76,7 +76,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
-                        <SearchBar
+                        {/* <SearchBar
                             searchPhrase={searchPhrase}
                             setSearchPhrase={setSearchPhrase}
                             clicked={clicked}
@@ -89,7 +89,7 @@ export default function HomeScreen({ navigation }) {
                                 setClicked={setClicked}
                               />
 
-                          )}
+                          )} */}
                     </View>
                     <TabSelectorAnimation
                         onChangeTab={setIndexTab}
@@ -106,12 +106,13 @@ export default function HomeScreen({ navigation }) {
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
                 />
-                {states.map((state) => {
+                {/* {states.map((state) => {
                     return <Text>{state}</Text>;
-                })}
+                })} */}
             </View>
         );
     }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -249,5 +250,4 @@ const styles = StyleSheet.create({
     flatlist: {
         flex: 0.82,
     },
-    });
-}
+});
