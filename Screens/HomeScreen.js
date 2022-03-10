@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
@@ -6,12 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
 import { db } from "../firebase";
-//import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Divider } from 'react-native';
 import { POSTS } from "./Post.js";
-//import { Avatar, withStyles, List } from 'react-native-ui-kitten';
-//import { ApplicationProvider, Layout,  } from '@ui-kitten/components';
-
 import {
     useFonts, 
     Outfit_400Regular,
@@ -19,11 +16,47 @@ import {
   } from '@expo-google-fonts/outfit'
 
 const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
-//const firebase = require("firebase");
-// Required for side-effects
-//require("firebase/firestore");
 
 export default function HomeScreen({ navigation }) {
+
+    // const [posts, setPosts] = useState(null);
+    // useEffect(() => {
+    //     const fetchPosts = async() => {
+    //         try {
+    //             const list = [];
+    //             await firestore()
+    //             .collection('posts')
+    //             .get()
+    //             .then((querySnapshot) => {
+    //                 // console.log('Total Posts: ', querySnapshot.size);
+
+    //                 querySnapshot.forEach(doc =>{
+    //                     const {title, description, profile, picture, location, timestamp, likes, comments} = doc.data();
+    //                     list.push({
+    //                         id: 1,
+    //                         user: 'Amy Losartan',
+    //                         title: 'Pothole on Panama Street',
+    //                         profile: require('../assets/addedAssets/profiles/amyLosartan.jpg'),
+    //                         picture: require('../assets/addedAssets/images/potholes.jpg'),
+    //                         description: 'There is a huge pothole on the corner of Panama and Lasuen that needs fixing! ',
+    //                         location: 'Palo Alto, CA',
+    //                         timestamp: '2 hr',
+    //                         liked: false,
+    //                         likes: 15,
+    //                         comments,
+    //                         isEndorsed: true,
+    //                     });
+    //                 })
+    //             })
+    //         } catch(e) {
+    //             console.log(e);
+    //         }
+    //     }
+
+    //     }, []);
+
+    // setPosts
+
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
@@ -70,37 +103,44 @@ export default function HomeScreen({ navigation }) {
     // }
 
     const renderItem = ({ item }) => (
-      <View style={styles.post}>
-        <View style={styles.postHeader}>
-            <Image source={item.profile} style={styles.postProfile}/>
-            <Text style={styles.user}>{item.user}</Text>
-            <Text style={styles.separate}>∙</Text>
-            <Text style={styles.time}>{item.timestamp}</Text>
-            <Ionicons name="md-ribbon-sharp" size={35} color={Colors.endorse}/>
+        <View style={styles.post}>
+            <View style={styles.postHeader}>
+                <Image source={item.profile} style={styles.postProfile}/>
+                <Text style={styles.user}>{item.user}</Text>
+                <Text style={styles.separate}>∙</Text>
+                <Text style={styles.time}>{item.timestamp}</Text>
+                <Ionicons style={styles.ribbon} name="md-ribbon-sharp" size={35} color={Colors.endorse}/>
+            </View>
+            <Image
+              source={item.picture }
+              style={styles.postImage}
+            />
+            <Text style={styles.postDescription}>
+                {item.description}
+            </Text>
+            <View style={styles.endorsedFooter}>
+                        <Ionicons name="md-heart" size={35} color="white"/>
+                        <Text style={styles.foot}>{item.likes}</Text>
+                        <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.comments}</Text>
+                        </Pressable>
+                        < Ionicons name="md-location-sharp" size={35} color="white"/>
+                        <Text style={styles.foot}>{item.location}</Text>
+            </View>
         </View>
-        <Image source={item.picture} style={styles.postImage}/>
-
-        <Text style={styles.postDescription}>{item.description}</Text>
-        <View style={styles.footer}>
-            <Ionicons name="md-heart" size={35} color="white"/>
-            <Text style={styles.foot}>{item.likes}</Text>
-            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-            <Text style={styles.foot}>{item.comments}</Text>
-            < Ionicons name="md-location-sharp" size={35} color="white"/>
-            <Text style={styles.foot}>{item.location}</Text>
-        </View>
-      </View>
     )
 
     if (!fontsLoaded) {
         return <AppLoading/>
     } else {
+
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>bridge</Text>
-                        <Pressable style={styles.button}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Profile')}>
                             <Ionicons name="person" size={20} color="white"/>
                             <Text style={styles.profile}>Profile</Text>
                         </Pressable>
@@ -249,7 +289,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: Colors.dark_green,
         marginLeft: 10,
-        marginRight: 30
+        marginRight: 10
     },
 
     footer: {
@@ -274,8 +314,22 @@ const styles = StyleSheet.create({
         flex: 0.82,
     },
 
-    activeTab: {
-        color: Colors.dark_green
+    endorsedFooter: {
+        backgroundColor: Colors.endorse,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        padding: 5, 
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%'
+    },
+
+    ribbon: {
+        justifyContent: 'center',
+    },
+
+    pressable:{
+      flexDirection: 'row',
     }
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image, TextInput} from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,53 +23,67 @@ const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
 // Required for side-effects
 //require("firebase/firestore");
 
-
-const renderItem = ({ item }) => (
-        <View style={styles.post}>
+export default function Comments({ navigation }) {
+    let [fontsLoaded] = useFonts({
+        Outfit_700Bold, 
+        Outfit_400Regular,
+    });
+    return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Replies</Text>
+      </View>
+      <View style={styles.post}>
             <View style={styles.postHeader}>
-                <Image source={item.profile} style={styles.postProfile}/>
-                <Text style={styles.user}>{item.user}</Text>
+                <Image source={POSTS[0].profile} style={styles.postProfile}/>
+                <Text style={styles.user}>{POSTS[0].user}</Text>
                 <Text style={styles.separate}>∙</Text>
-                <Text style={styles.time}>{item.timestamp}</Text>
+                <Text style={styles.time}>{POSTS[0].timestamp}</Text>
             </View>
             <Image
-              source={item.picture }
+              source={POSTS[0].picture }
               style={styles.postImage}
             />
             <Text style={styles.postDescription}>
-                {item.description}
+                {POSTS[0].description}
             </Text>
-            <View style={styles.footer}>
+            <View style={styles.endorsedFooter}>
                         <Ionicons name="md-heart" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.likes}</Text>
-                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.comments}</Text>
+                        <Text style={styles.foot}>{POSTS[0].likes}</Text>
+                            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                            <Text style={styles.foot}>{POSTS[0].comments}</Text>
                         < Ionicons name="md-location-sharp" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.location}</Text>
+                        <Text style={styles.foot}>{POSTS[0].location}</Text>
                         </View>
         </View>
-    );
+        <View style={styles.comment}>
+          <Image style={styles.prof}
+          source={require('../assets/addedAssets/profiles/samuelJames.jpg')} />
+          <Text style={styles.commentText}>Yes! I ran over it this morning and {'\n'} spilled my coffee.</Text>
+        </View>
+        <View style={styles.comment}>
+          <Image style={styles.prof}
+          source={require('../assets/addedAssets/profiles/patriciaHumphrey.jpg')} />
+          <Text style={styles.commentText}>It has become a real issue!  The roads feel{'\n'} unsafe to traverse.</Text>
+        </View>
+        <View style={styles.comment}>
+          <Image style={styles.prof}
+          source={require('../assets/addedAssets/profiles/matthewLiu.jpg')} />
+          <Text style={styles.commentText}>It has become a real issue!  The roads feel{'\n'} unsafe to traverse.</Text>
+        </View>
+        <TextInput style={styles.reply} placeholder="Post a Reply"
+        />
 
-  return (
-    <View style={styles.container}>
-      
-
-
-
-
-
+        
     </View>
+    
+
+
+  )
 
 
 
-  );
-
-
-
-
-
-
-
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -139,12 +153,13 @@ const styles = StyleSheet.create({
     },
 
     post: {
-        flex: 1,
+        flex: 0.45,
         width: '93%',
         alignSelf: 'center',
         borderRadius: 20,
         backgroundColor: 'white',
         marginTop: 15,
+        marginBottom: 40,
     },
 
     postImage: {
@@ -220,7 +235,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: '#191970',
+        backgroundColor: Colors.dark_green,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -231,7 +246,81 @@ const styles = StyleSheet.create({
 
     ribbon: {
         justifyContent: 'center',
-    }
+    },
+
+    pressable:{
+      flexDirection: 'row',
+    },
+
+    commentHeader: {
+        height: '22%',
+        padding: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+
+    },
+
+    commentText: {
+        padding: 5,
+        fontFamily: 'Outfit_400Regular',
+        fontSize: 14,
+        color: 'black',
+        alignSelf: 'center'
+    },
+
+    comment: {
+        backgroundColor: 'white',
+        flex: 0.1, 
+        marginTop: 20,
+        borderRadius: 30,
+        width: '95%',
+        alignSelf: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    prof: {
+        width: 50,
+        height: 50,
+        borderRadius: 10,
+        marginLeft: 10,
+        marginRight: 10
+    },
+
+    header: {
+        flex: 0.18,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        shadowOpacity: 1,
+        shadowOffset: {width: 0, height: 8},
+        shadowColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    title: {
+        color: Colors.dark_green,
+        fontFamily: 'Outfit_700Bold',
+        fontSize: 40,
+        marginTop: 35,
+        marginLeft: 20,
+        marginBottom: 20
+    },
+
+    reply: {
+        height: 40,
+        width: 120,
+        marginTop: 20,
+        marginLeft: 10,
+        borderWidth: 3,
+        padding: 10,
+        borderColor: Colors.dark_green,
+        borderRadius: 15,
+        fontFamily: 'Outfit_400Regular',
+        alignSelf: 'flex-start',
+        backgroundColor: 'white',
+    },
 
 
 });

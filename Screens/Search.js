@@ -31,9 +31,9 @@ export default function HomeScreen({ navigation }) {
     //     const [fakeData, setFakeData] = useState();
     // // }
 
-    // const [indexTab, setIndexTab] = useState(0);
-    // const [text, onChangeText] = useState("");
-    // const [states, setStates] = useState(DATA)
+    const [indexTab, setIndexTab] = useState(0);
+    const [text, onChangeText] = useState("");
+    const [states, setStates] = useState(DATA)
 
     // get data from the fake api endpoint
 
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     },
 
     foot: {
-        fontFamily: 'Outfit_300Light',
+        fontFamily: 'Outfit_400Regular',
         fontSize: 20,
         color: 'white',
         marginLeft: 8,

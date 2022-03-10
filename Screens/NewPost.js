@@ -4,8 +4,18 @@ import { POSTS } from "./Post.js";
 import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { doc, getDoc } from "firebase/firestore";
-export default function NewPost({ navigation }) {
+import {
+    useFonts, 
+    Outfit_400Regular,
+    Outfit_700Bold,
+  } from '@expo-google-fonts/outfit'
 
+
+export default function NewPost({ navigation }) {
+    let [fontsLoaded] = useFonts({
+        Outfit_700Bold, 
+        Outfit_400Regular,
+    });
     const [exampleState, setExampleState] = useState(POSTS)
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light',
+        fontFamily: 'Outfit_400Regular',
 
     },
 
@@ -135,7 +145,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light',
+        fontFamily: 'Outfit_400Regular',
     },
 
     subWrap: {
@@ -156,7 +166,7 @@ const styles = StyleSheet.create({
 
     guideText: {
         color: 'black',
-        fontFamily: 'Outfit_700Light',
+        fontFamily: 'Outfit_400Regular',
         fontSize: 15,
     },
 
@@ -204,7 +214,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         width: "90%",
         alignSelf: 'center',
-        fontFamily: 'Outfit_700Light',
+        fontFamily: 'Outfit_400Regular',
         color: Colors.dark_green,
 
     },
