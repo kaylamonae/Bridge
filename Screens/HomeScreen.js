@@ -28,6 +28,34 @@ export default function HomeScreen({ navigation }) {
         Outfit_700Bold, 
         Outfit_400Regular,
     });
+    let endorsed;
+    // if (isEndorsed === true) {
+    //         endorsed = 
+            
+    //                 <View style={styles.endorsedFooter}>
+    //                 <View style={styles.footer}>
+    //                 <Ionicons name="md-heart" size={35} color="white"/>
+    //                 <Text style={styles.foot}>{item.likes}</Text>
+    //                 < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+    //                 <Text style={styles.foot}>{item.comments}</Text>
+    //                 < Ionicons name="md-location-sharp" size={35} color="white"/>
+    //                 <Text style={styles.foot}>{item.location}</Text>
+    //                 </View>
+            
+                
+            // } else {
+            //     endorsed = 
+                
+                        // <View style={styles.footer}>
+                        // <Ionicons name="md-heart" size={35} color="white"/>
+                        // <Text style={styles.foot}>{item.likes}</Text>
+                        // < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                        // <Text style={styles.foot}>{item.comments}</Text>
+                        // < Ionicons name="md-location-sharp" size={35} color="white"/>
+                        // <Text style={styles.foot}>{item.location}</Text>
+                        // </View>
+                    
+            // }
 
     const [indexTab, setIndexTab] = useState(0);
 
@@ -48,6 +76,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.user}>{item.user}</Text>
             <Text style={styles.separate}>∙</Text>
             <Text style={styles.time}>{item.timestamp}</Text>
+            <Ionicons name="md-ribbon-sharp" size={35} color={Colors.endorse}/>
         </View>
         <Image source={item.picture} style={styles.postImage}/>
 
@@ -91,8 +120,6 @@ export default function HomeScreen({ navigation }) {
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
                 />
-
-                    
             </View>
         );
     }
@@ -221,11 +248,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit_700Bold',
         fontSize: 16,
         color: Colors.dark_green,
-        marginLeft: 10
+        marginLeft: 10,
+        marginRight: 30
     },
 
     footer: {
-        backgroundColor: Colors.dark_green,
+        backgroundColor: Colors.endorse,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
