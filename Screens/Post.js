@@ -35,7 +35,7 @@ export  const POSTS = [
     picture: require('../assets/addedAssets/images/caltrainTicket.jpg'),
     description: 'The Cal Train Tickets are ridiculously expensive!  I wish there was a cheaper option. ',
     location: 'Berkeley, CA',
-    timestamp: '30 min                ',
+    timestamp: '30 min ',
     likes: 200,
     comments: 25,
     isEndorsed: false,

@@ -6,120 +6,104 @@ import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, where, getDocs } from "firebase/firestore";
 import { Divider } from 'react-native';
 import { POSTS } from "./Post.js";
+import { getStorage, ref } from "firebase/storage";
 import {
     useFonts, 
     Outfit_400Regular,
     Outfit_700Bold,
   } from '@expo-google-fonts/outfit'
 
+const storage = getStorage();
+
 const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
 
 export default function HomeScreen({ navigation }) {
-
-    // const [posts, setPosts] = useState(null);
-    // useEffect(() => {
-    //     const fetchPosts = async() => {
-    //         try {
-    //             const list = [];
-    //             await firestore()
-    //             .collection('posts')
-    //             .get()
-    //             .then((querySnapshot) => {
-    //                 // console.log('Total Posts: ', querySnapshot.size);
-
-    //                 querySnapshot.forEach(doc =>{
-    //                     const {title, description, profile, picture, location, timestamp, likes, comments} = doc.data();
-    //                     list.push({
-    //                         id: 1,
-    //                         user: 'Amy Losartan',
-    //                         title: 'Pothole on Panama Street',
-    //                         profile: require('../assets/addedAssets/profiles/amyLosartan.jpg'),
-    //                         picture: require('../assets/addedAssets/images/potholes.jpg'),
-    //                         description: 'There is a huge pothole on the corner of Panama and Lasuen that needs fixing! ',
-    //                         location: 'Palo Alto, CA',
-    //                         timestamp: '2 hr',
-    //                         liked: false,
-    //                         likes: 15,
-    //                         comments,
-    //                         isEndorsed: true,
-    //                     });
-    //                 })
-    //             })
-    //         } catch(e) {
-    //             console.log(e);
-    //         }
-    //     }
-
-    //     }, []);
-
-    // setPosts
-
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
+    // let POSTS = [];
+    // async function getData(){
+    //     const querySnapshot = await getDocs(collection(db, "posts"));
+    //     querySnapshot.forEach((doc) => {
+    //       user = doc.user
+    //       profile = doc.profile
+    //       picture = doc.picture
 
-    let endorsed;
-    // if (isEndorsed === true) {
-    //         endorsed = 
-            
-    //                 <View style={styles.endorsedFooter}>
-    //                 <View style={styles.footer}>
-    //                 <Ionicons name="md-heart" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.likes}</Text>
-    //                 < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.comments}</Text>
-    //                 < Ionicons name="md-location-sharp" size={35} color="white"/>
-    //                 <Text style={styles.foot}>{item.location}</Text>
-    //                 </View>
-            
-                
-            // } else {
-            //     endorsed = 
-                
-                        // <View style={styles.footer}>
-                        // <Ionicons name="md-heart" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.likes}</Text>
-                        // < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.comments}</Text>
-                        // < Ionicons name="md-location-sharp" size={35} color="white"/>
-                        // <Text style={styles.foot}>{item.location}</Text>
-                        // </View>
-                    
-            // }
+    //     });
+
+    // }
+    
+
+
+
 
     const [indexTab, setIndexTab] = useState(0);
-    const renderItem = ({ item }) => (
-        <View style={styles.post}>
-            <View style={styles.postHeader}>
-                <Image source={item.profile} style={styles.postProfile}/>
-                <Text style={styles.user}>{item.user}</Text>
-                <Text style={styles.separate}>∙</Text>
-                <Text style={styles.time}>{item.timestamp}</Text>
-                <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
-            </View>
-            <Image
-              source={item.picture }
-              style={styles.postImage}
-            />
-            <Text style={styles.postDescription}>
-                {item.description}
-            </Text>
-            <View style={styles.endorsedFooter}>
-                        <Ionicons name="md-heart" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.likes}</Text>
-                        <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
-                            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                            <Text style={styles.foot}>{item.comments}</Text>
-                        </Pressable>
-                        < Ionicons name="md-location-sharp" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.location}</Text>
-                        </View>
-        </View>
-    );
+
+    const renderItem = ({ item,  }) => {
+        if(item.isEndorsed == false){
+            return (
+                <View style={styles.post}>
+                <View style={styles.postHeader}>
+                    <Image source={item.profile} style={styles.postProfile}/>
+                    <Text style={styles.user}>{item.user}</Text>
+                    <Text style={styles.separate}>∙</Text>
+                    <Text style={styles.time}>{item.timestamp}</Text>
+                </View>
+                <Image
+                  source={item.picture }
+                  style={styles.postImage}
+                />
+                <Text style={styles.postDescription}>
+                    {item.description}
+                </Text>
+                <View style={styles.footer}>
+                            <Ionicons name="md-heart" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.likes}</Text>
+                            <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                <Text style={styles.foot}>{item.comments}</Text>
+                            </Pressable>
+                            < Ionicons name="md-location-sharp" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.location}</Text>
+                            </View>
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.post}>
+                <View style={styles.postHeader}>
+                    <Image source={item.profile} style={styles.postProfile}/>
+                    <Text style={styles.user}>{item.user}</Text>
+                    <Text style={styles.separate}>∙</Text>
+                    <Text style={styles.time}>{item.timestamp}</Text>
+                    <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                </View>
+                <Image
+                  source={item.picture }
+                  style={styles.postImage}
+                />
+                <Text style={styles.postDescription}>
+                    {item.description}
+                </Text>
+                <View style={styles.endorsedFooter}>
+                            <Ionicons name="md-heart" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.likes}</Text>
+                            <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                <Text style={styles.foot}>{item.comments}</Text>
+                            </Pressable>
+                            < Ionicons name="md-location-sharp" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.location}</Text>
+                            </View>
+                </View>
+
+            )
+        }
+    }
       
 
 
@@ -132,7 +116,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>bridge</Text>
-                        <Pressable style={styles.button}>
+                        <Pressable onPress={()=> navigation.navigate('Profile')} style={styles.button}>
                             <Ionicons name="person" size={20} color="white"/>
                             <Text style={styles.profile}>Profile</Text>
                         </Pressable>
@@ -144,13 +128,15 @@ export default function HomeScreen({ navigation }) {
                         backgroundColor='white'
                         styleTitle={styles.tabText}
                     />
-                </View>                    
+                </View>       
                 <FlatList
                     style={styles.flatlist}
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
+                    onPress={() => navigation.navigate('Comments')}
                 />
+             
 
                     
             </View>
@@ -307,7 +293,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: '#191970',
+        backgroundColor: '#4682B4',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -322,6 +308,7 @@ const styles = StyleSheet.create({
 
     pressable:{
       flexDirection: 'row',
+      alignItems: 'center',
     }
 
 

@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState, useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 import {
     useFonts, 
@@ -13,60 +14,55 @@ import {
 
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
-//import List from "../Modules/List.js";
-//import SearchBar from "../Modules/SearchBar";
-
 
 const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
-const DATA = ['Palo Alto', 'Berkeley', 'Alameda', 'France'];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
-    // // const Home = () => {
-    //     const [searchPhrase, setSearchPhrase] = useState("");
-    //     const [clicked, setClicked] = useState(false);
-    //     const [fakeData, setFakeData] = useState();
-    // // }
-
-    // const [indexTab, setIndexTab] = useState(0);
-    // const [text, onChangeText] = useState("");
-    // const [states, setStates] = useState(DATA)
-
-    // get data from the fake api endpoint
+    // const Home = () => {
+        const [searchPhrase, setSearchPhrase] = useState("");
+        const [clicked, setClicked] = useState(false);
+        const [fakeData, setFakeData] = useState();
+    // }
+    const DATA = [POSTS];
+    const [indexTab, setIndexTab] = useState(0);
+    const [text, onChangeText] = useState("");
+    const [states, setStates] = useState(DATA)
+    //const postsRef = collection(db, "posts");
+    //const q = query(postsRef, where("location", "==", "text"));
 
     const renderItem = ({ item }) => (
-      <View style={styles.post}>
-        <View style={styles.postHeader}>
-            <Image source={item.profile} style={styles.postProfile}/>
-            <Text style={styles.user}>{item.user}</Text>
-            <Text style={styles.separate}>∙</Text>
-            <Text style={styles.time}>{item.timestamp}</Text>
-        </View>
-        <Image source={item.picture} style={styles.postImage}/>
-        <Text style={styles.postDescription}>{item.description}</Text>
-        <View style={styles.footer}>
-            < Ionicons name="md-heart" size={35} color="white"/>
-            <Text style={styles.foot}>{item.likes}</Text>
-            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-            <Text style={styles.foot}>{item.comments}</Text>
-            < Ionicons name="md-location-sharp" size={35} color="white"/>
-            <Text style={styles.foot}>{item.location}</Text>
-        </View>
-      </View>
-    )
+            <View style={styles.post}>
+                <View style={styles.postHeader}>
+                    <Image source={item.profile} style={styles.postProfile}/>
+                    <Text style={styles.user}>{item.user}</Text>
+                    <Text style={styles.separate}>∙</Text>
+                    <Text style={styles.time}>{item.timestamp}</Text>
+                    <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                </View>
+                <Image
+                  source={item.picture }
+                  style={styles.postImage}
+                />
+                <Text style={styles.postDescription}>
+                    {item.description}
+                </Text>
+                <View style={styles.endorsedFooter}>
+                            <Ionicons name="md-heart" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.likes}</Text>
+                            <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                <Text style={styles.foot}>{item.comments}</Text>
+                            </Pressable>
+                            < Ionicons name="md-location-sharp" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.location}</Text>
+                            </View>
+            </View>
+    );
 
-    function useAsync(asyncFn, onSuccess) {
-      useEffect(() => {
-        let isActive = true;
-        asyncFn().then(data => {
-          if (isActive) onSuccess(data);
-        });
-        return () => { isActive = false };
-      }, [asyncFn, onSuccess]);
-    }
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -85,16 +81,18 @@ export default function HomeScreen({ navigation }) {
                         styleTitle={styles.tabText}
                         styleTab={styles.tab}
                     />
-                </View>
-                <FlatList
+                    <TextInput 
+                        style={styles.bar}
+                        placeholder= "Search"
+                        />
+                    <FlatList
                     style={styles.flatlist}
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
                 />
-                {/* {states.map((state) => {
-                    return <Text>{state}</Text>;
-                })} */}
+
+                </View>
             </View>
         );
     }

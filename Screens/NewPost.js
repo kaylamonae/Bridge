@@ -3,40 +3,48 @@ import Colors from '../Themes/colors';
 import { POSTS } from "./Post.js";
 import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, collection, setDoc } from "firebase/firestore";
+import { app } from '../firebase';
+
 export default function NewPost({ navigation }) {
 
     const [exampleState, setExampleState] = useState(POSTS)
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
     const Stack = createStackNavigator();
+    const onPost = () => {
+    //For generating alert on buttton click
+    alert('Post Uploaded');
+  };
+    //const posts = collection(db, "posts");
 
-    const submitPost = async () => {
-        firestore()
-        .collection('posts')
-        .add({
-            title: title,
-            description: description,
-            likes: null,
-            comments: null,
-            timestamp: firestore.Timestamp.fromDate(new Date()),
-            location,
-            profile ,
-            picture ,
-        })
 
-        .then(()=>{
-            console.log('Post Added');
-        })
-        .catch((error) => {
-            console.log('Something went wrong', error);
-        });
-    }
+//     await setDoc(doc(posts, title), {
+//     title: Title, 
+//     description: Description, 
+//     location: Location,
+//     likes: 0,
+//     comments: 0,
+//     isEndorsed: false
+// }    
+    // const [fileUrl, setFileUrl] = React.useState(null)
+    
+    // const onUpload = (e) => {
+    //     const file = e.target.files[0]
+    //     const storageRef = app.storage().ref()
+    //     const fileRef = storageRef.child(file.name)
+    //     // await fileRef.put(file)
+    //     // setFileUrl(await fileRef.getDownloadURL())
+    // }
+
+    // const onSumbit = () => {
+    //     e.preventDefault()
+    // }
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Pressable style={styles.home}>
+                <Pressable onPress={navigation.navigate('Home Screen')} style={styles.home}>
                     <Text style={styles.buttonText}>Home</Text>
                 </Pressable>
             </View>
@@ -45,30 +53,27 @@ export default function NewPost({ navigation }) {
                 <TextInput 
                     style={styles.title}
                     placeholder= "Title"
-                    value={title}
-                    onChangeText={(content)=> setTitle(content)}
+                    //value={Title}
+                    //onChangeText={onChange}
                 />
                 <View style={styles.descriptionWrap}>
                     <TextInput 
                         style={styles.description}
                         placeholder= "Description"
-                        value={description}
-                        onChangeText={(content)=> setDescription(content)}
+                        //value={Description}
+                        //onChangeText={onChange}
                     />
                 </View>
                 <View style={styles.subWrap}>
-                    <TextInput 
-                        style={styles.image}
-                        placeholder= "Add Image"
-                        onChangeText={description}
-                    />
+                    <Pressable style={styles.image} >
+                        <Text style={{fontFamily: 'Outfit_700Light'}, {color:'light grey'}}>Add Image</Text>
+                    </Pressable>
                     <TextInput 
                         style={styles.location}
                         placeholder= "Add Location"
-                        onChangeText={description}
                     />
                 </View>
-                <Pressable style={styles.submit} onPress={submitPost}>
+                <Pressable style={styles.submit} onPress={()=> alert("Post Uploaded!")}>
                     <Text style={styles.buttonText}>POST</Text>
                 </Pressable>
             </View>
@@ -124,6 +129,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.dark_green,
         borderRadius: 15,
         fontFamily: 'Outfit_700Light',
+        justifyContent: 'center',
 
     },
 
