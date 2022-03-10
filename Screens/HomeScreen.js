@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
@@ -6,12 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
 import { db } from "../firebase";
-//import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Divider } from 'react-native';
 import { POSTS } from "./Post.js";
-//import { Avatar, withStyles, List } from 'react-native-ui-kitten';
-//import { ApplicationProvider, Layout,  } from '@ui-kitten/components';
-
 import {
     useFonts, 
     Outfit_400Regular,
@@ -19,11 +16,47 @@ import {
   } from '@expo-google-fonts/outfit'
 
 const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
-//const firebase = require("firebase");
-// Required for side-effects
-//require("firebase/firestore");
 
 export default function HomeScreen({ navigation }) {
+
+    // const [posts, setPosts] = useState(null);
+    // useEffect(() => {
+    //     const fetchPosts = async() => {
+    //         try {
+    //             const list = [];
+    //             await firestore()
+    //             .collection('posts')
+    //             .get()
+    //             .then((querySnapshot) => {
+    //                 // console.log('Total Posts: ', querySnapshot.size);
+
+    //                 querySnapshot.forEach(doc =>{
+    //                     const {title, description, profile, picture, location, timestamp, likes, comments} = doc.data();
+    //                     list.push({
+    //                         id: 1,
+    //                         user: 'Amy Losartan',
+    //                         title: 'Pothole on Panama Street',
+    //                         profile: require('../assets/addedAssets/profiles/amyLosartan.jpg'),
+    //                         picture: require('../assets/addedAssets/images/potholes.jpg'),
+    //                         description: 'There is a huge pothole on the corner of Panama and Lasuen that needs fixing! ',
+    //                         location: 'Palo Alto, CA',
+    //                         timestamp: '2 hr',
+    //                         liked: false,
+    //                         likes: 15,
+    //                         comments,
+    //                         isEndorsed: true,
+    //                     });
+    //                 })
+    //             })
+    //         } catch(e) {
+    //             console.log(e);
+    //         }
+    //     }
+
+    //     }, []);
+
+    // setPosts
+
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
@@ -78,8 +111,10 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.endorsedFooter}>
                         <Ionicons name="md-heart" size={35} color="white"/>
                         <Text style={styles.foot}>{item.likes}</Text>
-                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                        <Text style={styles.foot}>{item.comments}</Text>
+                        <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                            < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                            <Text style={styles.foot}>{item.comments}</Text>
+                        </Pressable>
                         < Ionicons name="md-location-sharp" size={35} color="white"/>
                         <Text style={styles.foot}>{item.location}</Text>
                         </View>
@@ -87,9 +122,11 @@ export default function HomeScreen({ navigation }) {
     );
       
 
+
     if (!fontsLoaded) {
         return <AppLoading/>
     } else {
+
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -113,7 +150,6 @@ export default function HomeScreen({ navigation }) {
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
-                    onPress={() => navigation.navigate('Comments')}
                 />
 
                     
@@ -282,6 +318,10 @@ const styles = StyleSheet.create({
 
     ribbon: {
         justifyContent: 'center',
+    },
+
+    pressable:{
+      flexDirection: 'row',
     }
 
 

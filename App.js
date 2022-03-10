@@ -12,6 +12,8 @@ import HomeScreen from "./Screens/HomeScreen";
 import Search from "./Screens/Search";
 import NewPost from "./Screens/NewPost";
 import Profile from "./Screens/Profile";
+import comment from "./Screens/Comments";
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +57,7 @@ export default function App() {
         <Stack.Screen name="Log In" component={LogIn} options={{headerShown: false}}/>
         <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false}}/>
         <Stack.Screen name="Home Screen" component={HomeTabs} options={{headerShown: false}}/>
+        <Stack.Screen name="comments" component={comment} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
