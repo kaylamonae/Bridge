@@ -5,6 +5,12 @@ import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { doc, collection, setDoc } from "firebase/firestore";
 import { app } from '../firebase';
+import {
+    useFonts, 
+    Outfit_400Regular,
+    Outfit_700Bold,
+  } from '@expo-google-fonts/outfit'
+
 
 export default function NewPost({ navigation }) {
 

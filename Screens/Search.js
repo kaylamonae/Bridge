@@ -15,7 +15,7 @@ import {
 import posts from "./HomeScreen.js" 
 import { POSTS } from "./Post.js";
 
-const TABS = [{title: 'Local'}, {title: 'Other Communities'}];
+const TABS = [{title: 'Local'}, {title: 'Global'}];
 
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -34,34 +34,67 @@ export default function HomeScreen({ navigation }) {
     //const postsRef = collection(db, "posts");
     //const q = query(postsRef, where("location", "==", "text"));
 
-    const renderItem = ({ item }) => (
-            <View style={styles.post}>
-                <View style={styles.postHeader}>
-                    <Image source={item.profile} style={styles.postProfile}/>
-                    <Text style={styles.user}>{item.user}</Text>
-                    <Text style={styles.separate}>∙</Text>
-                    <Text style={styles.time}>{item.timestamp}</Text>
-                    <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
-                </View>
-                <Image
-                  source={item.picture }
-                  style={styles.postImage}
-                />
-                <Text style={styles.postDescription}>
-                    {item.description}
-                </Text>
-                <View style={styles.endorsedFooter}>
-                            <Ionicons name="md-heart" size={35} color="white"/>
-                            <Text style={styles.foot}>{item.likes}</Text>
-                            <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
-                                < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                                <Text style={styles.foot}>{item.comments}</Text>
-                            </Pressable>
-                            < Ionicons name="md-location-sharp" size={35} color="white"/>
-                            <Text style={styles.foot}>{item.location}</Text>
-                            </View>
-            </View>
-    );
+    const renderItem = ({ item,  }) => {
+            if(item.isEndorsed == false){
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.footer}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
+                    )
+                } else {
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.endorsedFooter}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
+
+                    )
+                } 
+    }
 
 
     if (!fontsLoaded) {
@@ -90,7 +123,7 @@ export default function HomeScreen({ navigation }) {
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
-                />
+                    />
 
                 </View>
             </View>
