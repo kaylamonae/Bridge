@@ -103,9 +103,9 @@ export default function Profile ({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerLeft}>
                         <Text style={styles.title}>Profile</Text>
-                        <Text style={styles.name}>Hello, Caleb</Text>
+                        <Text style={styles.name}>Hello {username}</Text>
                     </View>
-                    <Image style={styles.image} source={{uri: "file:///var/mobile/Containers/Data/Application/2F380BFD-E7E6-48F1-924B-986F10B6AD34/Library/Caches/ExponentExperienceData/%2540anonymous%252FBridge-51e784ab-d3c9-4efa-b94b-5d8458651ec9/ImagePicker/7AB112B6-422C-4AEF-9B73-15B4018D0582.png"}}/>
+                    <Image style={styles.image} source={photoURL}/>
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.title}>Your Posts:</Text>
