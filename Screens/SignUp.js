@@ -36,7 +36,7 @@ const uploadImageAsync = async (uri) => { // taken from expo documentation of im
     uploadBytesResumable(storageRef, uri);
     // const result = await uploadBytes(storageRef, blob);
     // blob.close();
-    // return await getDownloadURL(storageRef);
+    return await getDownloadURL(storageRef);
 }
 
 
@@ -56,9 +56,10 @@ export default function SignUp({ navigation }) {
         });
         console.log(result);
         if (!result.cancelled) {
-            setImage(result.uri);
+            // setImage(result.uri);
+            setImage(uploadImageAsync(result.uri));
         }
-        uploadImageAsync(image);
+        //uploadImageAsync(image);
     };
 
 
@@ -126,6 +127,7 @@ export default function SignUp({ navigation }) {
                             />
                             <TextInput
                                 style={styles.textBox}
+                                secureTextEntry={true}
                                 onChangeText={onChangePassword}
                                 value={password}
                                 placeholder="password"

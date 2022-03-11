@@ -61,6 +61,7 @@ export default function LogIn( { navigation }) {
                             />
                             <TextInput
                                 style={styles.textBox}
+                                secureTextEntry={true}
                                 onChangeText={onChangePassword}
                                 value={password}
                                 placeholder="password"
