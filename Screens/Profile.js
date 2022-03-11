@@ -1,21 +1,34 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
-import { Ionicons } from '@expo/vector-icons';
-import TabSelectorAnimation from 'react-native-tab-selector';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { db } from '../firebase';
 import { useState } from "react";
 
 import {
     useFonts, 
-    Outfit_300Light,
+    Outfit_400Regular,
     Outfit_700Bold,
-  } from '@expo-google-fonts/outfit'
-import { NavigationContainer } from '@react-navigation/native';
+} from '@expo-google-fonts/outfit'
+
+let username = "";
+const auth = getAuth();
+let photo = '../assets/blank-profile.webp';
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        username = user.displayName;
+        if (user.photoURL !== "") {
+            console.log(user.photoURL)
+            photo = user.photoURL;
+        }
+    } 
+});
 
 export default function Profile ({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
-        Outfit_300Light,
+        Outfit_400Regular,
     });
 
     if (!fontsLoaded) {
@@ -26,11 +39,9 @@ export default function Profile ({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerLeft}>
                         <Text style={styles.title}>Profile</Text>
-                        <Pressable onPress={() => navigation.navigate('Home')} style={styles.button}>
-                            <Text style={styles.home}>Home</Text>
-                        </Pressable>
+                        <Text style={styles.name}>Hello {username}</Text>
                     </View>
-                    <Image style={styles.image} source={require('../assets/blank-profile.webp')}/>
+                    <Image style={styles.image} source={{uri: photo}}/>
                 </View>
                 <View style={styles.content}>
 
@@ -65,7 +76,6 @@ const styles = StyleSheet.create({
         fontSize: 40,
         marginTop: 35,
         marginLeft: 20,
-        marginBottom: 20
     },
 
     content: {
@@ -108,8 +118,14 @@ const styles = StyleSheet.create({
 
     headerLeft: {
         backgroundColor: 'white',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         borderRadius: 30
+    },
+
+    name: {
+        color: Colors.dark_green,
+        fontFamily: 'Outfit_400Regular',
+        fontSize: 28,
+        marginLeft: 20,
+        marginTop: 10
     }
 });

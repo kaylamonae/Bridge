@@ -37,7 +37,7 @@ function HomeTabs() {
                     return <Ionicons name={iconName} size={size} color={color}/>;
                 },
                 tabBarActiveTintColor: Colors.accent,
-                tabBarInactiveTintColor: Colors.background,
+                tabBarInactiveTintColor: 'white',
                 tabBarStyle: {
                   backgroundColor: Colors.dark_green,
                 }

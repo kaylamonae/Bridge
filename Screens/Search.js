@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image, Stack } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     },
 
     foot: {
-        fontFamily: 'Outfit_300Light',
+        fontFamily: 'Outfit_400Regular',
         fontSize: 20,
         color: 'white',
         marginLeft: 8,

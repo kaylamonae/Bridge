@@ -38,9 +38,6 @@ export default function HomeScreen({ navigation }) {
     // }
     
 
-
-
-
     const [indexTab, setIndexTab] = useState(0);
 
     const renderItem = ({ item,  }) => {
@@ -105,8 +102,6 @@ export default function HomeScreen({ navigation }) {
                 } 
         
     }
-      
-
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -128,6 +123,7 @@ export default function HomeScreen({ navigation }) {
                         tabs={TABS}
                         backgroundColor='white'
                         styleTitle={styles.tabText}
+                        
                     />
                 </View>       
                 <FlatList
@@ -137,9 +133,6 @@ export default function HomeScreen({ navigation }) {
                     keyExtractor={item => POSTS.item}
                     onPress={() => navigation.navigate('Comments')}
                 />
-             
-
-                    
             </View>
         );
     }
@@ -255,24 +248,25 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
         color: Colors.dark_green,
-        marginRight: 5
+        marginRight: 20
     },
 
     separate: {
         color: Colors.dark_green,
         fontSize: 25,
-        marginRight: 1
+        marginRight: 5
     },
 
     time: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 16,
         color: Colors.dark_green,
-        marginLeft: 10
+        marginLeft: 10,
+        marginRight: 10
     },
 
     footer: {
-        backgroundColor: Colors.dark_green,
+        backgroundColor: Colors.endorse,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -294,7 +288,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: '#4682B4',
+        backgroundColor: Colors.endorse,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -305,13 +299,12 @@ const styles = StyleSheet.create({
 
     ribbon: {
         justifyContent: 'center',
+        color: Colors.endorse
     },
 
     pressable:{
       flexDirection: 'row',
       alignItems: 'center',
     }
-
-
 });
 

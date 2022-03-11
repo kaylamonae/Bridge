@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -28,7 +28,16 @@ export default function LogIn( { navigation }) {
             let userCredential = await signInWithEmailAndPassword(auth, email, password);
             navigation.navigate('Home Screen');
         } catch (err) {
-            console.log(err);
+            Alert.alert(
+                "Error",
+                err.code,
+                [
+                    {
+                        text: "Ok",
+                        onPress: () => console.log(err.code),
+                    }
+                ]
+            )
         }
     }
 
@@ -52,6 +61,7 @@ export default function LogIn( { navigation }) {
                             />
                             <TextInput
                                 style={styles.textBox}
+                                secureTextEntry={true}
                                 onChangeText={onChangePassword}
                                 value={password}
                                 placeholder="password"

@@ -1,15 +1,43 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import AppLoading from 'expo-app-loading';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { db } from '../firebase';
+import { collection, doc, addDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import * as ImagePicker from 'expo-image-picker';
+import uuid from 'uuid';
 import {
     useFonts, 
     Outfit_400Regular,
     Outfit_700Bold,
-  } from '@expo-google-fonts/outfit'
+} from '@expo-google-fonts/outfit'
 
+const storage = getStorage();
+
+
+const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
+    // const blob = await new Promise((resolve, reject) => {
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.onload = function () {
+    //       resolve(xhr.response);
+    //     };
+    //     xhr.onerror = function (e) {
+    //       console.log(e);
+    //       reject(new TypeError("Network request failed"));
+    //     };
+    //     xhr.responseType = "blob";
+    //     xhr.open("GET", uri, true);
+    //     xhr.send(null);
+    // });
+    
+    const storageRef = ref(storage, uri);
+    uploadBytesResumable(storageRef, uri);
+    // const result = await uploadBytes(storageRef, blob);
+    // blob.close();
+    return await getDownloadURL(storageRef);
+}
 
 export default function SignUp({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -17,9 +45,28 @@ export default function SignUp({ navigation }) {
         Outfit_400Regular,
     });
 
+    const [image, setImage] = useState("../assets/blank-profile.webp");
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1
+        });
+        console.log(result);
+        if (!result.cancelled) {
+            setImage(result.uri);
+            //setImage(uploadImageAsync(result.uri));
+        }
+        //uploadImageAsync(image);
+    };
+
+
+
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
-    const [UID, onChangeUID] = useState("");
+    const [username, onChangeUID] = useState("");
+    const usersCollectionRef = collection(db, 'users');
 
     const signUpUser = async () => {
         const auth = getAuth();
@@ -28,10 +75,24 @@ export default function SignUp({ navigation }) {
         }
         try {
             let userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            
+            await addDoc(collection(db, 'users'), {
+                name: username,
+                email: userCredential.user.email
+            })
+            userCredential.user.displayName = username;
+            userCredential.user.photoURL = image;
             navigation.navigate('Home Screen');
         } catch (err) {
-            console.log(err);
+            Alert.alert(
+                "Error",
+                err.code,
+                [
+                    {
+                        text: "Ok",
+                        onPress: () => console.log(err.code),
+                    }
+                ]
+            )
         }
     }
 
@@ -46,12 +107,17 @@ export default function SignUp({ navigation }) {
                     </Pressable>
                     <View style={styles.popup}>
                         <Text style={styles.title}>join {'\n'}bridge</Text>
+                        {image && <Image style={styles.image} source={{uri : image}}/>}
+                        <Pressable  style={styles.button} onPress={pickImage}>
+                            <Text style={styles.caption}>upload a profile picture</Text>
+                        </Pressable> 
+
                         <View style={styles.textContainer}>
                             <TextInput
                                 style={styles.textBox}
                                 onChangeText={onChangeUID}
-                                value={UID}
-                                placeholder="your name"
+                                value={username}
+                                placeholder="username"
                             />
                             <TextInput
                                 style={styles.textBox}
@@ -61,6 +127,7 @@ export default function SignUp({ navigation }) {
                             />
                             <TextInput
                                 style={styles.textBox}
+                                secureTextEntry={true}
                                 onChangeText={onChangePassword}
                                 value={password}
                                 placeholder="password"
@@ -118,7 +185,7 @@ const styles = StyleSheet.create({
         fontSize: 55,
         marginLeft: 25,
         marginTop: 20,
-        marginBottom: 150
+        marginBottom: 50
     },
 
     textContainer: {
@@ -146,7 +213,7 @@ const styles = StyleSheet.create({
         borderRadius: 25, 
         width: '80%',
         padding: 5,
-        marginTop: 70
+        marginTop: 30
     },
 
     bigbuttonText: {
@@ -154,5 +221,18 @@ const styles = StyleSheet.create({
         fontSize: 30, 
         fontFamily: 'Outfit_700Bold',
         alignItems: 'center'
+    }, 
+
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 25,
+        alignSelf: 'center',
+    },
+
+    caption: {
+        fontFamily: 'Outfit_400Regular',
+        fontSize: 24,
+        color: 'white'
     }
 });

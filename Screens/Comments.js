@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image, TextInput} from 'react-native';
 import Colors from '../Themes/colors';
-import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
-import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
 import { db } from "../firebase";
 //import { doc, getDoc } from "firebase/firestore";
@@ -24,7 +22,11 @@ const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
 //require("firebase/firestore");
 
 export default function Comments({ navigation }) {
-  return (
+    let [fontsLoaded] = useFonts({
+        Outfit_700Bold, 
+        Outfit_400Regular,
+    });
+    return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Replies</Text>
@@ -80,13 +82,6 @@ export default function Comments({ navigation }) {
 
 
 }
-
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
     },
 
     post: {
-        flex: 0.45,
+        flex: 0.4,
         width: '93%',
         alignSelf: 'center',
         borderRadius: 20,
@@ -320,7 +315,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_700Light',
+        fontFamily: 'Outfit_400Regular',
         alignSelf: 'flex-start',
         backgroundColor: 'white',
     },
