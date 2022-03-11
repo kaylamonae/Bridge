@@ -19,6 +19,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         username = user.displayName;
         if (user.photoURL !== "") {
+            console.log(user.photoURL)
             photo = user.photoURL;
         }
     } 
@@ -40,7 +41,7 @@ export default function Profile ({ navigation }) {
                         <Text style={styles.title}>Profile</Text>
                         <Text style={styles.name}>Hello {username}</Text>
                     </View>
-                    {/*<Image style={styles.image} source={photo}/>*/}
+                    <Image style={styles.image} source={{uri: photo}}/>
                 </View>
                 <View style={styles.content}>
 

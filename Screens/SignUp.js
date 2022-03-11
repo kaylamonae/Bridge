@@ -39,14 +39,13 @@ const uploadImageAsync = async (uri) => { // taken from expo documentation of im
     return await getDownloadURL(storageRef);
 }
 
-
 export default function SignUp({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
 
-    const [image, setImage] = useState(require("../assets/blank-profile.webp"));
+    const [image, setImage] = useState("../assets/blank-profile.webp");
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -56,8 +55,8 @@ export default function SignUp({ navigation }) {
         });
         console.log(result);
         if (!result.cancelled) {
-            // setImage(result.uri);
-            setImage(uploadImageAsync(result.uri));
+            setImage(result.uri);
+            //setImage(uploadImageAsync(result.uri));
         }
         //uploadImageAsync(image);
     };
@@ -108,10 +107,11 @@ export default function SignUp({ navigation }) {
                     </Pressable>
                     <View style={styles.popup}>
                         <Text style={styles.title}>join {'\n'}bridge</Text>
-                        <Pressable  style={styles.imageBox} onPress={pickImage}>
-                            <Image style={styles.image} source={image}/>
+                        {image && <Image style={styles.image} source={{uri : image}}/>}
+                        <Pressable  style={styles.button} onPress={pickImage}>
                             <Text style={styles.caption}>upload a profile picture</Text>
                         </Pressable> 
+
                         <View style={styles.textContainer}>
                             <TextInput
                                 style={styles.textBox}
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         fontSize: 55,
         marginLeft: 25,
         marginTop: 20,
-        marginBottom: 70
+        marginBottom: 50
     },
 
     textContainer: {
@@ -223,26 +223,16 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }, 
 
-    imageBox: {
-        flex: .3,
-        alignItems: 'center',
-        marginBottom: 30
-    },
-
     image: {
         width: 100,
         height: 100,
-        borderRadius: 55,
+        borderRadius: 25,
         alignSelf: 'center',
-        
     },
 
     caption: {
         fontFamily: 'Outfit_400Regular',
         fontSize: 24,
-        marginTop: 5,
-        color: Colors.dark_green
+        color: 'white'
     }
-
-    
 });

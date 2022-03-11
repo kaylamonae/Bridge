@@ -38,9 +38,6 @@ export default function HomeScreen({ navigation }) {
     // }
     
 
-
-
-
     const [indexTab, setIndexTab] = useState(0);
 
     const renderItem = ({ item,  }) => {
@@ -104,8 +101,6 @@ export default function HomeScreen({ navigation }) {
             )
         }
     }
-      
-
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -137,9 +132,6 @@ export default function HomeScreen({ navigation }) {
                     keyExtractor={item => POSTS.item}
                     onPress={() => navigation.navigate('Comments')}
                 />
-             
-
-                    
             </View>
         );
     }
@@ -313,7 +305,5 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
     }
-
-
 });
 

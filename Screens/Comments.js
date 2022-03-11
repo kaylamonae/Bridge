@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView, FlatList, Image, TextInput} from 'react-native';
 import Colors from '../Themes/colors';
-import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
-import TabSelectorAnimation from 'react-native-tab-selector';
 import { useState } from "react";
 import { db } from "../firebase";
 //import { doc, getDoc } from "firebase/firestore";
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
     },
 
     post: {
-        flex: 0.45,
+        flex: 0.4,
         width: '93%',
         alignSelf: 'center',
         borderRadius: 20,

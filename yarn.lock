@@ -7737,25 +7737,22 @@
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-7.0.3.tgz"
   "version" "7.0.3"
 
-<<<<<<< HEAD
-"uuid@^8.3.2":
-=======
 "uuid@^8.0.0":
->>>>>>> b1176389f78624eaf30c60a130731d19fe117c76
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   "version" "8.3.2"
 
-<<<<<<< HEAD
+"uuid@^8.3.2":
+  "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
+  "version" "8.3.2"
+
 "uuid@7.0.2":
   "integrity" "sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw=="
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-7.0.2.tgz"
   "version" "7.0.2"
 
-"vary@~1.1.2":
-=======
 "vary@^1", "vary@~1.1.2":
->>>>>>> b1176389f78624eaf30c60a130731d19fe117c76
   "integrity" "sha1-IpnwLG3tMNSllhsLn3RSShj2NPw="
   "resolved" "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   "version" "1.1.2"
