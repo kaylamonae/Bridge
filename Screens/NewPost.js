@@ -1,36 +1,30 @@
-import { StyleSheet, Text, View, Pressable, TextInput, FlatList, Button, Modal } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native';
 import Colors from '../Themes/colors';
 import { POSTS } from "./Post.js";
-import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { doc, collection, setDoc } from "firebase/firestore";
-import { app } from '../firebase';
-import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import * as ImagePicker from 'expo-image-picker';
-import uuid from 'uuid';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { React } from 'react';
 import {
     useFonts, 
     Outfit_400Regular,
     Outfit_700Bold,
 
-  } from '@expo-google-fonts/outfit'
-const storage = getStorage();
-    
-const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
+} from '@expo-google-fonts/outfit'
 
-    const storageRef = ref(storage, uri);
-    uploadBytesResumable(storageRef, uri);
-    return await getDownloadURL(storageRef);
-}
+const auth = getAuth();
+let username = "";
+let photo = '../assets/blank-profile.webp';
 
-// const class AddPost extends Component {
-//         constructor(props);{
-            
-//         }
-//     }
-  
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        username = user.displayName;
+        if (user.photoURL !== "") {
+            photo = user.photoURL;
+        }
+    } 
+});
+
 export default function NewPost({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
@@ -53,54 +47,39 @@ export default function NewPost({ navigation }) {
     const Stack = createStackNavigator();
     const onPost = () => {
     //For generating alert on buttton click
-    alert('Post Uploaded');
-    const [image, setImage] = useState("../assets/blank-profile.webp");
-    // const pickImage = async () => {
-    //     let result = await ImagePicker.launchImageLibraryAsync({
-    //         mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //         allowsEditing: true,
-    //         aspect: [1, 1],
-    //         quality: 1
-    //     });
-    //     console.log(result);
-    //     if (!result.cancelled) {
-    //         setImage(result.uri);
-    //         //setImage(uploadImageAsync(result.uri));
-    //     }
-    //     //uploadImageAsync(image);
-    // };
-
-     
-
-  };
+        alert('Post Uploaded');
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Pressable onPress={navigation.navigate('Home Screen')} style={styles.home}>
-                    <Ionicons name="md-home" size={25} color="white"/>
-                    <Text style={styles.buttonText}>Home</Text>
-                </Pressable>
                 <Text style={styles.headerText}>Make a Post!</Text>
             </View>
             <View style={styles.bigwrap}>
+                {/* <Text style={styles.question}>what's on your mind?</Text> */}
+                <View style={styles.profileInfo}>
+                    {photo && <Image style={styles.Profileimage} source={{uri : photo}}/>}
+                    <Text style={styles.username}>@{username}</Text>
+                </View>
                 <Text style={styles.question}>what's on your mind?</Text>
+                {/* {photo && <Image style={styles.Profileimage} source={{uri : photo}}/>}
+                <Text style={styles.username}>{username}</Text> */}
                 <TextInput 
                     style={styles.title}
                     placeholder= "Title"
                     value={Title}
                     onChangeText={(newText)=>setTitle(newText)}
                     onEndEditing={()=>Data.title=Title}
-                    
                 />
                 <View style={styles.descriptionWrap}>
                     <TextInput 
                         style={styles.description}
                         placeholder= "Description"
-                        multiline={false}
+                        multiline={true}
                         value={Description}
                         onChangeText={(newText)=>setDescription(newText)}
-                        onEndEditing={()=>Data.description=Description}
+                        onSubmitEditing={() => Data.description=Description}
+                        // onEndEditing={()=>Data.description=Description}
                     />
                 </View>
                 <View style={styles.subWrap}>
@@ -115,7 +94,7 @@ export default function NewPost({ navigation }) {
                         onEndEditing={()=>Data.location=Location}
                     />
                 </View>
-                <Pressable style={styles.submit} onPress={()=> POSTS.push(Data)}>
+                <Pressable style={styles.submit} onPress={onPost}>
                     <Text style={styles.buttonText}>Post</Text>
                 </Pressable>
             </View>
@@ -144,7 +123,7 @@ const styles = StyleSheet.create({
         color: Colors.dark_green,
         fontFamily: 'Outfit_700Bold',
         fontSize: 40,
-        // marginTop: 35,
+        marginTop: 35,
         marginLeft: 20,
         marginBottom: 20
     },
@@ -304,6 +283,28 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit_400Regular',
         color: Colors.dark_green,
         marginTop: 20
+    },
+
+    username: {
+        fontFamily: 'Outfit_400Regular',
+        fontSize: 24,
+        color: Colors.dark_green,
+        alignSelf: 'center',
+        marginLeft: 5
+    },
+    
+    Profileimage: {
+        width: 70,
+        height: 70,
+        borderRadius: 20,
+        alignSelf: 'flex-start',
+        marginLeft: 20
+    },
+
+    profileInfo: {
+        flexDirection: 'row',
+        alignSelf: 'flex-start',    
+        marginTop: 20  
     }
 
 })
