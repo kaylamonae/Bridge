@@ -10,26 +10,39 @@ import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } fr
 import * as ImagePicker from 'expo-image-picker';
 import uuid from 'uuid';
 import { React } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
     useFonts, 
     Outfit_400Regular,
     Outfit_700Bold,
 
   } from '@expo-google-fonts/outfit'
-const storage = getStorage();
+// const storage = getStorage();
     
-const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
+// const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
 
-    const storageRef = ref(storage, uri);
-    uploadBytesResumable(storageRef, uri);
-    return await getDownloadURL(storageRef);
-}
+//     const storageRef = ref(storage, uri);
+//     uploadBytesResumable(storageRef, uri);
+//     return await getDownloadURL(storageRef);
+// }
 
-// const class AddPost extends Component {
+// // const class AddPost extends Component {
 //         constructor(props);{
             
 //         }
 //     }
+const auth = getAuth();
+let username = "";
+let photo = '../assets/blank-profile.webp';
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        username = user.displayName;
+        if (user.photoURL !== "") {
+            photo = user.photoURL;
+        }
+    } 
+});
   
 export default function NewPost({ navigation }) {
     let [fontsLoaded] = useFonts({
@@ -37,8 +50,8 @@ export default function NewPost({ navigation }) {
         Outfit_400Regular,
     });
     const Data = {
-        profile: {uri: "file:///var/mobile/Containers/Data/Application/2F380BFD-E7E6-48F1-924B-986F10B6AD34/Library/Caches/ExponentExperienceData/%2540anonymous%252FBridge-51e784ab-d3c9-4efa-b94b-5d8458651ec9/ImagePicker/7AB112B6-422C-4AEF-9B73-15B4018D0582.png"},
-        user: 'Caleb Robinson',
+        profile: {uri: photo},
+        user: username,
         likes: 0,
         comments: 0,
         timestamp: 'just now',
