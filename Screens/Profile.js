@@ -12,15 +12,14 @@ import {
     Outfit_700Bold,
 } from '@expo-google-fonts/outfit'
 
-let username = "";
 const auth = getAuth();
+let username = "";
 let photo = '../assets/blank-profile.webp';
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
         username = user.displayName;
         if (user.photoURL !== "") {
-            console.log(user.photoURL)
             photo = user.photoURL;
         }
     } 
@@ -31,69 +30,70 @@ export default function Profile ({ navigation }) {
         Outfit_700Bold, 
         Outfit_400Regular,
     });
-    const renderItem = ({ item }) => {
-        if(item.user == 'Caleb Robinson'){
-            if(item.isEndorsed == true){
-                    return (
-                        <View style={styles.post}>
-                        <View style={styles.postHeader}>
-                            <Image source={item.profile} style={styles.postProfile}/>
-                            <Text style={styles.user}>{item.user}</Text>
-                            <Text style={styles.separate}>∙</Text>
-                            <Text style={styles.time}>{item.timestamp}</Text>
-                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
-                        </View>
-                        <Image
-                          source={item.picture }
-                          style={styles.postImage}
-                        />
-                        <Text style={styles.postDescription}>
-                            {item.description}
-                        </Text>
-                        <View style={styles.endorsedFooter}>
-                                    <Ionicons name="md-heart" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.likes}</Text>
-                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
-                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                                        <Text style={styles.foot}>{item.comments}</Text>
-                                    </Pressable>
-                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.location}</Text>
-                                    </View>
-                        </View>
-                    )
-                } else {
-                    return (
-                        <View style={styles.post}>
-                        <View style={styles.postHeader}>
-                            <Image source={item.profile} style={styles.postProfile}/>
-                            <Text style={styles.user}>{item.user}</Text>
-                            <Text style={styles.separate}>∙</Text>
-                            <Text style={styles.time}>{item.timestamp}</Text>
-                        </View>
-                        <Image
-                          source={item.picture }
-                          style={styles.postImage}
-                        />
-                        <Text style={styles.postDescription}>
-                            {item.description}
-                        </Text>
-                        <View style={styles.footer}>
-                                    <Ionicons name="md-heart" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.likes}</Text>
-                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
-                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                                        <Text style={styles.foot}>{item.comments}</Text>
-                                    </Pressable>
-                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.location}</Text>
-                                    </View>
-                        </View>
 
-                    )
-                } 
-        }
-    }
+    // const renderItem = ({ item }) => {
+    //     if(item.user == 'Caleb Robinson'){
+    //         if(item.isEndorsed == true){
+    //                 return (
+    //                     <View style={styles.post}>
+    //                     <View style={styles.postHeader}>
+    //                         <Image source={item.profile} style={styles.postProfile}/>
+    //                         <Text style={styles.user}>{item.user}</Text>
+    //                         <Text style={styles.separate}>∙</Text>
+    //                         <Text style={styles.time}>{item.timestamp}</Text>
+    //                         <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+    //                     </View>
+    //                     <Image
+    //                       source={item.picture }
+    //                       style={styles.postImage}
+    //                     />
+    //                     <Text style={styles.postDescription}>
+    //                         {item.description}
+    //                     </Text>
+    //                     <View style={styles.endorsedFooter}>
+    //                                 <Ionicons name="md-heart" size={35} color="white"/>
+    //                                 <Text style={styles.foot}>{item.likes}</Text>
+    //                                 <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+    //                                     < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+    //                                     <Text style={styles.foot}>{item.comments}</Text>
+    //                                 </Pressable>
+    //                                 < Ionicons name="md-location-sharp" size={35} color="white"/>
+    //                                 <Text style={styles.foot}>{item.location}</Text>
+    //                                 </View>
+    //                     </View>
+    //                 )
+    //             } else {
+    //                 return (
+    //                     <View style={styles.post}>
+    //                     <View style={styles.postHeader}>
+    //                         <Image source={item.profile} style={styles.postProfile}/>
+    //                         <Text style={styles.user}>{item.user}</Text>
+    //                         <Text style={styles.separate}>∙</Text>
+    //                         <Text style={styles.time}>{item.timestamp}</Text>
+    //                     </View>
+    //                     <Image
+    //                       source={item.picture }
+    //                       style={styles.postImage}
+    //                     />
+    //                     <Text style={styles.postDescription}>
+    //                         {item.description}
+    //                     </Text>
+    //                     <View style={styles.footer}>
+    //                                 <Ionicons name="md-heart" size={35} color="white"/>
+    //                                 <Text style={styles.foot}>{item.likes}</Text>
+    //                                 <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+    //                                     < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+    //                                     <Text style={styles.foot}>{item.comments}</Text>
+    //                                 </Pressable>
+    //                                 < Ionicons name="md-location-sharp" size={35} color="white"/>
+    //                                 <Text style={styles.foot}>{item.location}</Text>
+    //                                 </View>
+    //                     </View>
+
+    //                 )
+    //             } 
+    //     }
+    // }
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -105,17 +105,17 @@ export default function Profile ({ navigation }) {
                         <Text style={styles.title}>Profile</Text>
                         <Text style={styles.name}>Hello {username}</Text>
                     </View>
-                    <Image style={styles.image} source={photoURL}/>
+                    <Image style={styles.image} source={{uri: photo}}/>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.title}>Your Posts:</Text>
+                    {/* <Text style={styles.title}>Your Posts:</Text>
                     <FlatList
                     style={styles.flatlist}
                     data={POSTS}
                     renderItem={renderItem}
                     keyExtractor={item => POSTS.item}
                     onPress={() => navigation.navigate('Comments')}
-                />
+                /> */}
                 </View>
                 
             </View>
@@ -298,5 +298,4 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
     }
-
 });

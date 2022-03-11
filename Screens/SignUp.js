@@ -16,29 +16,6 @@ import {
 
 const storage = getStorage();
 
-
-const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
-    // const blob = await new Promise((resolve, reject) => {
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.onload = function () {
-    //       resolve(xhr.response);
-    //     };
-    //     xhr.onerror = function (e) {
-    //       console.log(e);
-    //       reject(new TypeError("Network request failed"));
-    //     };
-    //     xhr.responseType = "blob";
-    //     xhr.open("GET", uri, true);
-    //     xhr.send(null);
-    // });
-    
-    const storageRef = ref(storage, uri);
-    uploadBytesResumable(storageRef, uri);
-    // const result = await uploadBytes(storageRef, blob);
-    // blob.close();
-    return await getDownloadURL(storageRef);
-}
-
 export default function SignUp({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
@@ -56,9 +33,7 @@ export default function SignUp({ navigation }) {
         console.log(result);
         if (!result.cancelled) {
             setImage(result.uri);
-            //setImage(uploadImageAsync(result.uri));
         }
-        //uploadImageAsync(image);
     };
 
 
@@ -66,7 +41,6 @@ export default function SignUp({ navigation }) {
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
     const [username, onChangeUID] = useState("");
-    const usersCollectionRef = collection(db, 'users');
 
     const signUpUser = async () => {
         const auth = getAuth();
@@ -186,7 +160,7 @@ const styles = StyleSheet.create({
         fontSize: 55,
         marginLeft: 25,
         marginTop: 20,
-        marginBottom: 0,
+        marginBottom: 50,
     },
 
     textContainer: {
@@ -200,7 +174,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.dark_green,
         borderRadius: 25,
         width: '80%',
-        margin: 10,
+        margin: 8,
         padding: 10,
         fontSize: 18,
         fontFamily: 'Outfit_400Regular',
@@ -214,7 +188,8 @@ const styles = StyleSheet.create({
         borderRadius: 25, 
         width: '80%',
         padding: 5,
-        marginBottom: 50,
+        marginTop: 10
+        
     },
 
     bigbuttonText: {
