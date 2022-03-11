@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Bridge",
+    "owner": "monaekay",
     "slug": "Bridge",
     "version": "1.0.0",
     "orientation": "portrait",

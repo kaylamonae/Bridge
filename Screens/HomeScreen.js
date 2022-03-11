@@ -114,7 +114,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.user}>{item.user}</Text>
                             <Text style={styles.separate}>∙</Text>
                             <Text style={styles.time}>{item.timestamp}</Text>
-                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                            <Ionicons style={styles.ribbon} name="md-ribbon" size={35} color={Colors.endorse}/>
                         </View>
                         <Image
                           source={item.picture }
