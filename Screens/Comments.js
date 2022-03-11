@@ -28,10 +28,13 @@ export default function Comments({ navigation }) {
     });
     return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Replies</Text>
-      </View>
-      <View style={styles.post}>
+        <View style={styles.header}>
+            <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+                <Ionicons name="md-arrow-back-circle" size={45} color={Colors.dark_green}/>
+            </Pressable>
+            <Text style={styles.title}>Replies</Text>
+        </View>
+        <View style={styles.post}>
             <View style={styles.postHeader}>
                 <Image source={POSTS[0].profile} style={styles.postProfile}/>
                 <Text style={styles.user}>{POSTS[0].user}</Text>
@@ -70,18 +73,9 @@ export default function Comments({ navigation }) {
           source={require('../assets/addedAssets/profiles/matthewLiu.jpg')} />
           <Text style={styles.commentText}>It has become a real issue!  The roads feel{'\n'} unsafe to traverse.</Text>
         </View>
-        <TextInput style={styles.reply} placeholder="Post a Reply"
-        />
-
-        
+        <TextInput style={styles.reply} placeholder="Post a Reply"/>
     </View>
-    
-
-
-  )
-
-
-
+    );
 }
 
 const styles = StyleSheet.create({
@@ -93,10 +87,12 @@ const styles = StyleSheet.create({
     header: {
         flex: 0.22,
         backgroundColor: 'white',
+        flexDirection: 'row',
         borderRadius: 30,
         shadowOpacity: 1,
         shadowOffset: {width: 0, height: 8},
         shadowColor: 'grey',
+        alignItems: 'center'
     },
 
     headerText: {
@@ -308,18 +304,27 @@ const styles = StyleSheet.create({
     },
 
     reply: {
-        height: 40,
-        width: 120,
+        height: 50,
+        width: '95%',
         marginTop: 20,
         marginLeft: 10,
+        marginRight: 10,
         borderWidth: 3,
         padding: 10,
         borderColor: Colors.dark_green,
-        borderRadius: 15,
+        borderRadius: 25,
         fontFamily: 'Outfit_400Regular',
         alignSelf: 'flex-start',
         backgroundColor: 'white',
     },
 
-
+    back: {
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        borderRadius: 25,
+        height: 50,
+        width: '30%',
+        //alignSelf: 'flex-start',
+        //marginTop: 10
+    }
 });
