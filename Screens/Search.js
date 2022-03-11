@@ -28,18 +28,81 @@ export default function HomeScreen({ navigation }) {
         const [fakeData, setFakeData] = useState();
     // }
     const DATA = [POSTS];
+    const results = DATA.filter(location => DATA.filter == text)
     const [indexTab, setIndexTab] = useState(0);
-    const [text, onChangeText] = useState("");
-    const [states, setStates] = useState(DATA)
-    //const postsRef = collection(db, "posts");
-    //const q = query(postsRef, where("location", "==", "text"));
-    this.state = {
-      searchText: "",
-      data: [],
-      filteredData: []
-    };
+    const [text, setText] = useState("");
+    const [states, setStates] = useState(results)
 
-    const renderItem = ({ item,  }) => {
+    function contains(search){
+
+    }
+
+    const renderItem = ({ item }) => {
+        if(indexTab == 0){
+            if(item.isGlobal!= true){
+                if(item.isEndorsed == true){
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.endorsedFooter}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
+                    )
+                } else {
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.footer}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
+
+                    )
+                } 
+            }
+            
+        } else if (item.isGlobal == true){
+
             if(item.isEndorsed == true){
                     return (
                         <View style={styles.post}>
@@ -77,7 +140,6 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.user}>{item.user}</Text>
                             <Text style={styles.separate}>∙</Text>
                             <Text style={styles.time}>{item.timestamp}</Text>
-                            
                         </View>
                         <Image
                           source={item.picture }
@@ -100,6 +162,8 @@ export default function HomeScreen({ navigation }) {
 
                     )
                 } 
+        }
+
     }
 
 
@@ -111,6 +175,14 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerText}>
                         <Text style={styles.title}>search</Text>
+                        <TextInput 
+                        style={styles.bar}
+                        placeholder= "Search"
+                        value={text}
+                        onChangeText={(newText)=>setText(newText)}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        />
                     </View>
                     <TabSelectorAnimation
                         onChangeTab={setIndexTab}
@@ -120,23 +192,13 @@ export default function HomeScreen({ navigation }) {
                         styleTitle={styles.tabText}
                         styleTab={styles.tab}
                     />
-                    <TextInput 
-                        style={styles.bar}
-                        placeholder= "Search"
-                        value={location}
-                        onChangeText={this.search}
-                        value={this.state.searchText}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        />
-                    <FlatList
-                    style={styles.flatlist}
-                    data={POSTS}
-                    renderItem={renderItem}
-                    keyExtractor={item => POSTS.item}
-                    />
-
                 </View>
+                    <FlatList
+                        style={styles.flatlist}
+                        data={POSTS}
+                        renderItem={renderItem}
+                        keyExtractor={item => results.item}
+                    />
             </View>
         );
     }
@@ -174,14 +236,14 @@ const styles = StyleSheet.create({
 
     bar: {
         height: 40,
-        width: 250,
+        width: 200,
         marginTop: 45,
-        marginRight: 20,
+        marginRight: 5,
         borderWidth: 3,
         padding: 10,
         borderColor: Colors.dark_green,
         borderRadius: 15,
-        fontFamily: 'Outfit_400Regular'
+        fontFamily: 'Outfit_400Regular',
     },
 
     tabSelector: {
@@ -278,4 +340,23 @@ const styles = StyleSheet.create({
     flatlist: {
         flex: 0.82,
     },
+
+    endorsedFooter: {
+        backgroundColor: '#4682B4',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        padding: 5, 
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%'
+    },
+
+    ribbon: {
+        justifyContent: 'center',
+    },
+
+    pressable:{
+      flexDirection: 'row',
+      alignItems: 'center',
+    }
 });

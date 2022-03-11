@@ -73,7 +73,10 @@ export default function Comments({ navigation }) {
           source={require('../assets/addedAssets/profiles/matthewLiu.jpg')} />
           <Text style={styles.commentText}>It has become a real issue!  The roads feel{'\n'} unsafe to traverse.</Text>
         </View>
-        <TextInput style={styles.reply} placeholder="Post a Reply"/>
+        <TextInput style={styles.reply} placeholder="Post a Reply"
+        onSubmitEditing={()=>alert('Reply sumbitted!')}
+
+        />
     </View>
     );
 }

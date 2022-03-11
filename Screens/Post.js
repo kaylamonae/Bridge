@@ -11,6 +11,7 @@ export  const POSTS = [
     likes: 15,
     comments: 3,
     isEndorsed: true,
+    isGlobal: false,
   },
 
   {
@@ -25,6 +26,7 @@ export  const POSTS = [
     likes: 20,
     comments: 5,
     isEndorsed: false,
+    isGlobal: false,
   }, 
 
   {
@@ -39,6 +41,7 @@ export  const POSTS = [
     likes: 200,
     comments: 25,
     isEndorsed: false,
+    isGlobal: false,
   },
 
   {
@@ -53,6 +56,7 @@ export  const POSTS = [
     likes: 75,
     comments: 30,
     isEndorsed: true,
+    isGlobal: false,
   },
 
   {
@@ -60,17 +64,58 @@ export  const POSTS = [
     user: 'Wanye Gorgalo',
     title: 'Too many bikes',
     profile: require('../assets/addedAssets/profiles/wanyeGorgalo.jpg'),
-    picture: null,
+    picture:require('../assets/addedAssets/images/bikes.jpg'),
     description: 'There are too many bikes on the sidewalk of Campus Drive, I was almost hit 3 times today!! ',
     location: 'Stanford, CA',
     timestamp: '2 days',
     likes: 60,
     comments: 9,
     isEndorsed: false,
+    isGlobal: false,
   },
 
   {
-    id:6,
-    user: 'Caleb Robinson',
+    id: 6,
+    user: 'Tim Johnson',
+    title: 'Gas Prices',
+    profile: require('../assets/addedAssets/profiles/timJohnson.webp'),
+    picture:require('../assets/addedAssets/images/gas.jpg'),
+    description: 'Gas Prices have soared way too high here 🤑 ',
+    location: 'Silver Spring, MD',
+    timestamp: '5 days',
+    likes: 178,
+    comments: 29,
+    isEndorsed: true,
+    isGlobal: true,
+  },
+
+  {
+    id: 7,
+    user: 'Jabari Douglas',
+    title: 'No healthy food',
+    profile: require('../assets/addedAssets/profiles/jabariDouglas.webp'),
+    picture:require('../assets/addedAssets/images/unhealthy.jpg'),
+    description: 'I have been really dissapointed in the lack of healthy food options near me, I wish there were more. ',
+    location: 'Dallas, TX',
+    timestamp: '20 minutes',
+    likes: 17,
+    comments: 2,
+    isEndorsed: false,
+    isGlobal: true,
+  },
+
+  {
+    id: 8,
+    user: 'Maddy Jones',
+    title: 'Homeless Shelter Drive',
+    profile: require('../assets/addedAssets/profiles/maddyJones.webp'),
+    picture:require('../assets/addedAssets/images/homeless.jpg'),
+    description: 'We are having a drive for the Homeless Shelter in Akron and are looking for donations of non-perishable food items and warm clothes. ',
+    location: 'Akron, OH',
+    timestamp: '3 days',
+    likes: 157,
+    comments: 22,
+    isEndorsed: false,
+    isGlobal: true,
   },
 ]

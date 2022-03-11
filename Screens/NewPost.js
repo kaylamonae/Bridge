@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, TextInput, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, FlatList, Button, Modal } from 'react-native';
 import Colors from '../Themes/colors';
 import { POSTS } from "./Post.js";
 import { Ionicons } from '@expo/vector-icons';
@@ -6,50 +6,73 @@ import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { doc, collection, setDoc } from "firebase/firestore";
 import { app } from '../firebase';
+import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import * as ImagePicker from 'expo-image-picker';
+import uuid from 'uuid';
+import { React } from 'react';
 import {
     useFonts, 
     Outfit_400Regular,
     Outfit_700Bold,
 
   } from '@expo-google-fonts/outfit'
+const storage = getStorage();
+    
+const uploadImageAsync = async (uri) => { // taken from expo documentation of image picker w/ firebase storage upload 
+
+    const storageRef = ref(storage, uri);
+    uploadBytesResumable(storageRef, uri);
+    return await getDownloadURL(storageRef);
+}
+
+// const class AddPost extends Component {
+//         constructor(props);{
+            
+//         }
+//     }
   
 export default function NewPost({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
         Outfit_400Regular,
     });
+    const Data = {
+        profile: {uri: "file:///var/mobile/Containers/Data/Application/2F380BFD-E7E6-48F1-924B-986F10B6AD34/Library/Caches/ExponentExperienceData/%2540anonymous%252FBridge-51e784ab-d3c9-4efa-b94b-5d8458651ec9/ImagePicker/7AB112B6-422C-4AEF-9B73-15B4018D0582.png"},
+        user: 'Caleb Robinson',
+        likes: 0,
+        comments: 0,
+        timestamp: 'just now',
+    };
+    const [Title, setTitle] = useState('');
+    const [Description, setDescription] = useState('');
+    const [Location, setLocation] = useState('');
+    // const onChangeHandler = event => {
+    //     setTitle(event.target.value);
+    //   };
     const [exampleState, setExampleState] = useState(POSTS)
-    const [title, setTitle] = useState(null);
-    const [description, setDescription] = useState(null);
     const Stack = createStackNavigator();
     const onPost = () => {
     //For generating alert on buttton click
     alert('Post Uploaded');
+    const [image, setImage] = useState("../assets/blank-profile.webp");
+    // const pickImage = async () => {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //         allowsEditing: true,
+    //         aspect: [1, 1],
+    //         quality: 1
+    //     });
+    //     console.log(result);
+    //     if (!result.cancelled) {
+    //         setImage(result.uri);
+    //         //setImage(uploadImageAsync(result.uri));
+    //     }
+    //     //uploadImageAsync(image);
+    // };
+
+     
+
   };
-    //const posts = collection(db, "posts");
-
-
-//     await setDoc(doc(posts, title), {
-//     title: Title, 
-//     description: Description, 
-//     location: Location,
-//     likes: 0,
-//     comments: 0,
-//     isEndorsed: false
-// }    
-    // const [fileUrl, setFileUrl] = React.useState(null)
-    
-    // const onUpload = (e) => {
-    //     const file = e.target.files[0]
-    //     const storageRef = app.storage().ref()
-    //     const fileRef = storageRef.child(file.name)
-    //     // await fileRef.put(file)
-    //     // setFileUrl(await fileRef.getDownloadURL())
-    // }
-
-    // const onSumbit = () => {
-    //     e.preventDefault()
-    // }
 
     return (
         <View style={styles.container}>
@@ -65,16 +88,19 @@ export default function NewPost({ navigation }) {
                 <TextInput 
                     style={styles.title}
                     placeholder= "Title"
-                    //value={Title}
-                    //onChangeText={onChange}
+                    value={Title}
+                    onChangeText={(newText)=>setTitle(newText)}
+                    onEndEditing={()=>Data.title=Title}
+                    
                 />
                 <View style={styles.descriptionWrap}>
                     <TextInput 
                         style={styles.description}
                         placeholder= "Description"
-                        multiline={true}
-                        //value={Description}
-                        //onChangeText={onChange}
+                        multiline={false}
+                        value={Description}
+                        onChangeText={(newText)=>setDescription(newText)}
+                        onEndEditing={()=>Data.description=Description}
                     />
                 </View>
                 <View style={styles.subWrap}>
@@ -84,9 +110,12 @@ export default function NewPost({ navigation }) {
                     <TextInput 
                         style={styles.location}
                         placeholder= "Add Location"
+                        value={Location}
+                        onChangeText={(newText)=>setLocation(newText)}
+                        onEndEditing={()=>Data.location=Location}
                     />
                 </View>
-                <Pressable style={styles.submit} onPress={()=> alert("Post Uploaded!")}>
+                <Pressable style={styles.submit} onPress={()=> POSTS.push(Data)}>
                     <Text style={styles.buttonText}>Post</Text>
                 </Pressable>
             </View>
