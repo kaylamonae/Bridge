@@ -68,4 +68,9 @@ export  const POSTS = [
     comments: 9,
     isEndorsed: false,
   },
+
+  {
+    id:6,
+    user: 'Caleb Robinson',
+  },
 ]

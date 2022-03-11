@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
     popup: {
         flex: 1,
         backgroundColor: "white",
-        borderRadius: 30
+        borderRadius: 30,
+        justifyContent: 'space-evenly',
     },
 
     title: {
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
         fontSize: 55,
         marginLeft: 25,
         marginTop: 20,
-        marginBottom: 50
+        marginBottom: 0,
     },
 
     textContainer: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
         borderRadius: 25, 
         width: '80%',
         padding: 5,
-        marginTop: 30
+        marginBottom: 50,
     },
 
     bigbuttonText: {

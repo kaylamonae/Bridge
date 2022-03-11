@@ -38,38 +38,14 @@ export default function HomeScreen({ navigation }) {
     // }
     
 
+
+
+
     const [indexTab, setIndexTab] = useState(0);
 
     const renderItem = ({ item,  }) => {
-            if(item.isEndorsed == false){
-                    return (
-                        <View style={styles.post}>
-                        <View style={styles.postHeader}>
-                            <Image source={item.profile} style={styles.postProfile}/>
-                            <Text style={styles.user}>{item.user}</Text>
-                            <Text style={styles.separate}>∙</Text>
-                            <Text style={styles.time}>{item.timestamp}</Text>
-                        </View>
-                        <Image
-                          source={item.picture }
-                          style={styles.postImage}
-                        />
-                        <Text style={styles.postDescription}>
-                            {item.description}
-                        </Text>
-                        <View style={styles.footer}>
-                                    <Ionicons name="md-heart" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.likes}</Text>
-                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
-                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
-                                        <Text style={styles.foot}>{item.comments}</Text>
-                                    </Pressable>
-                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
-                                    <Text style={styles.foot}>{item.location}</Text>
-                                    </View>
-                        </View>
-                    )
-                } else {
+        if(indexTab == 0){
+            if(item.isEndorsed == true){
                     return (
                         <View style={styles.post}>
                         <View style={styles.postHeader}>
@@ -97,11 +73,72 @@ export default function HomeScreen({ navigation }) {
                                     <Text style={styles.foot}>{item.location}</Text>
                                     </View>
                         </View>
+                    )
+                } else {
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.footer}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
 
                     )
                 } 
-        
+        } else {
+            if(item.isEndorsed == true){
+                    return (
+                        <View style={styles.post}>
+                        <View style={styles.postHeader}>
+                            <Image source={item.profile} style={styles.postProfile}/>
+                            <Text style={styles.user}>{item.user}</Text>
+                            <Text style={styles.separate}>∙</Text>
+                            <Text style={styles.time}>{item.timestamp}</Text>
+                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                        </View>
+                        <Image
+                          source={item.picture }
+                          style={styles.postImage}
+                        />
+                        <Text style={styles.postDescription}>
+                            {item.description}
+                        </Text>
+                        <View style={styles.endorsedFooter}>
+                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.likes}</Text>
+                                    <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
+                                        < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
+                                        <Text style={styles.foot}>{item.comments}</Text>
+                                    </Pressable>
+                                    < Ionicons name="md-location-sharp" size={35} color="white"/>
+                                    <Text style={styles.foot}>{item.location}</Text>
+                                    </View>
+                        </View>
+                    )
+                }
+        }
     }
+      
+
 
     if (!fontsLoaded) {
         return <AppLoading/>
@@ -123,7 +160,6 @@ export default function HomeScreen({ navigation }) {
                         tabs={TABS}
                         backgroundColor='white'
                         styleTitle={styles.tabText}
-                        
                     />
                 </View>       
                 <FlatList
@@ -133,6 +169,9 @@ export default function HomeScreen({ navigation }) {
                     keyExtractor={item => POSTS.item}
                     onPress={() => navigation.navigate('Comments')}
                 />
+             
+
+                    
             </View>
         );
     }
@@ -248,25 +287,24 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit_700Bold',
         fontSize: 20,
         color: Colors.dark_green,
-        marginRight: 20
+        marginRight: 5
     },
 
     separate: {
         color: Colors.dark_green,
         fontSize: 25,
-        marginRight: 5
+        marginRight: 1
     },
 
     time: {
         fontFamily: 'Outfit_700Bold',
         fontSize: 16,
         color: Colors.dark_green,
-        marginLeft: 10,
-        marginRight: 10
+        marginLeft: 10
     },
 
     footer: {
-        backgroundColor: Colors.endorse,
+        backgroundColor: Colors.dark_green,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -288,7 +326,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: Colors.endorse,
+        backgroundColor: '#4682B4',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -299,12 +337,13 @@ const styles = StyleSheet.create({
 
     ribbon: {
         justifyContent: 'center',
-        color: Colors.endorse
     },
 
     pressable:{
       flexDirection: 'row',
       alignItems: 'center',
     }
+
+
 });
 

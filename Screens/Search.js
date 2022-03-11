@@ -33,9 +33,14 @@ export default function HomeScreen({ navigation }) {
     const [states, setStates] = useState(DATA)
     //const postsRef = collection(db, "posts");
     //const q = query(postsRef, where("location", "==", "text"));
+    this.state = {
+      searchText: "",
+      data: [],
+      filteredData: []
+    };
 
     const renderItem = ({ item,  }) => {
-            if(item.isEndorsed == false){
+            if(item.isEndorsed == true){
                     return (
                         <View style={styles.post}>
                         <View style={styles.postHeader}>
@@ -43,6 +48,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.user}>{item.user}</Text>
                             <Text style={styles.separate}>∙</Text>
                             <Text style={styles.time}>{item.timestamp}</Text>
+                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
                         </View>
                         <Image
                           source={item.picture }
@@ -51,7 +57,7 @@ export default function HomeScreen({ navigation }) {
                         <Text style={styles.postDescription}>
                             {item.description}
                         </Text>
-                        <View style={styles.footer}>
+                        <View style={styles.endorsedFooter}>
                                     <Ionicons name="md-heart" size={35} color="white"/>
                                     <Text style={styles.foot}>{item.likes}</Text>
                                     <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
@@ -71,7 +77,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.user}>{item.user}</Text>
                             <Text style={styles.separate}>∙</Text>
                             <Text style={styles.time}>{item.timestamp}</Text>
-                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                            
                         </View>
                         <Image
                           source={item.picture }
@@ -80,7 +86,7 @@ export default function HomeScreen({ navigation }) {
                         <Text style={styles.postDescription}>
                             {item.description}
                         </Text>
-                        <View style={styles.endorsedFooter}>
+                        <View style={styles.footer}>
                                     <Ionicons name="md-heart" size={35} color="white"/>
                                     <Text style={styles.foot}>{item.likes}</Text>
                                     <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
@@ -117,6 +123,11 @@ export default function HomeScreen({ navigation }) {
                     <TextInput 
                         style={styles.bar}
                         placeholder= "Search"
+                        value={location}
+                        onChangeText={this.search}
+                        value={this.state.searchText}
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         />
                     <FlatList
                     style={styles.flatlist}

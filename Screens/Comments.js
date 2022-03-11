@@ -37,6 +37,7 @@ export default function Comments({ navigation }) {
                 <Text style={styles.user}>{POSTS[0].user}</Text>
                 <Text style={styles.separate}>∙</Text>
                 <Text style={styles.time}>{POSTS[0].timestamp}</Text>
+                <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
             </View>
             <Image
               source={POSTS[0].picture }
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     },
 
     post: {
-        flex: 0.4,
+        flex: 0.45,
         width: '93%',
         alignSelf: 'center',
         borderRadius: 20,
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: Colors.dark_green,
+        backgroundColor: '#4682B4',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
