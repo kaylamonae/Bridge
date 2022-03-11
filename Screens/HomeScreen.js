@@ -17,9 +17,7 @@ import {
   } from '@expo-google-fonts/outfit'
 
 const storage = getStorage();
-
 const TABS = [{title: 'Latest'}, {title: 'Endorsed'}];
-
 export default function HomeScreen({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
@@ -40,9 +38,8 @@ export default function HomeScreen({ navigation }) {
 
 
 
-
     const [indexTab, setIndexTab] = useState(0);
-
+    const [color, setColor] = useState('white');
     const renderItem = ({ item,  }) => {
         if(indexTab == 0){
             if(item.isEndorsed == true){
@@ -53,7 +50,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.user}>{item.user}</Text>
                             <Text style={styles.separate}>∙</Text>
                             <Text style={styles.time}>{item.timestamp}</Text>
-                            <Ionicons style={styles.ribbon} name="ribbon-outline" size={35} color="#191970"/>
+                            <Ionicons style={styles.ribbon} name="md-ribbon" size={35} color={Colors.endorse}/>
                         </View>
                         <Image
                           source={item.picture }
@@ -63,7 +60,9 @@ export default function HomeScreen({ navigation }) {
                             {item.description}
                         </Text>
                         <View style={styles.endorsedFooter}>
-                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                <Pressable onPress={setColor()}> 
+                                    <Ionicons name="md-heart" size={35} color={color}/>
+                                </Pressable>
                                     <Text style={styles.foot}>{item.likes}</Text>
                                     <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
                                         < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
@@ -91,7 +90,9 @@ export default function HomeScreen({ navigation }) {
                             {item.description}
                         </Text>
                         <View style={styles.footer}>
-                                    <Ionicons name="md-heart" size={35} color="white"/>
+                                <Pressable onPress={setColor(Colors.accent)}> 
+                                    <Ionicons name="md-heart" size={35} color={color}/>
+                                </Pressable>
                                     <Text style={styles.foot}>{item.likes}</Text>
                                     <Pressable style={styles.pressable}onPress={() => navigation.navigate('comments')}>
                                         < Ionicons name="md-chatbubble-ellipses" size={35} color="white"/>
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
     },
 
     endorsedFooter: {
-        backgroundColor: '#4682B4',
+        backgroundColor: Colors.endorse,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         padding: 5, 
@@ -337,13 +338,12 @@ const styles = StyleSheet.create({
 
     ribbon: {
         justifyContent: 'center',
+        marginLeft: 10,
     },
 
     pressable:{
       flexDirection: 'row',
       alignItems: 'center',
     }
-
-
 });
 
