@@ -105,11 +105,11 @@ export default function Profile ({ navigation }) {
                         <Text style={styles.title}>Profile</Text>
                         <Text style={styles.name}>Hello {username}</Text>
                     </View>
-                    <Image style={styles.image} source={{uri: photo}}/>
+                    {photo && <Image style={styles.image} source={{uri: photo}}/>}
                 </View>
                 <View style={styles.content}>
-                    {/* <Text style={styles.title}>Your Posts:</Text>
-                    <FlatList
+                    <Text style={styles.title}>Your Posts:</Text>
+                    {/*<FlatList
                     style={styles.flatlist}
                     data={POSTS}
                     renderItem={renderItem}
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         marginTop: 35,
         marginLeft: 20,
+        alignSelf: 'center'
     },
 
     content: {
@@ -297,5 +298,5 @@ const styles = StyleSheet.create({
     pressable:{
       flexDirection: 'row',
       alignItems: 'center',
-    }
+    },
 });

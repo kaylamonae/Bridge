@@ -18,7 +18,7 @@ export default function LogIn( { navigation }) {
 
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
-
+    // const [image, setImage] = useState(null)
     const loginUser = async () => {
         const auth = getAuth();
         if (email.length === 0 || password.length === 0) {
@@ -26,6 +26,7 @@ export default function LogIn( { navigation }) {
         }
         try {
             let userCredential = await signInWithEmailAndPassword(auth, email, password);
+            // setImage(userCredential.user.photoURL);
             navigation.navigate('Home Screen');
         } catch (err) {
             Alert.alert(
@@ -156,5 +157,12 @@ const styles = StyleSheet.create({
         fontSize: 30, 
         fontFamily: 'Outfit_700Bold',
         alignItems: 'center'
-    }
+    },
+
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 25,
+        alignSelf: 'center',
+    },
 });

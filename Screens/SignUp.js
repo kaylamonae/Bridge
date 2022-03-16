@@ -51,7 +51,8 @@ export default function SignUp({ navigation }) {
             let userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await addDoc(collection(db, 'users'), {
                 name: username,
-                email: userCredential.user.email
+                email: userCredential.user.email,
+                picture: image
             })
             userCredential.user.displayName = username;
             userCredential.user.photoURL = image;
