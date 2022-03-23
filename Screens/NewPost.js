@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { React } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
     useFonts, 
     Outfit_400Regular,
@@ -40,23 +39,6 @@ onAuthStateChanged(auth, (user) => {
     } 
 });
   
-
-} from '@expo-google-fonts/outfit'
-
-const auth = getAuth();
-let username = "";
-let photo = '../assets/blank-profile.webp';
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        username = user.displayName;
-        if (user.photoURL !== "") {
-            photo = user.photoURL;
-        }
-    } 
-});
-
-
 export default function NewPost({ navigation }) {
     let [fontsLoaded] = useFonts({
         Outfit_700Bold, 
@@ -107,7 +89,7 @@ export default function NewPost({ navigation }) {
                     <TextInput 
                         style={styles.description}
                         placeholder= "Description"
-                        multiline={true}
+                        //multiline={true}
                         value={Description}
                         onChangeText={(newText)=>setDescription(newText)}
                         onSubmitEditing={() => Data.description=Description}
